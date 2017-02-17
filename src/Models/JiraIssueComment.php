@@ -34,8 +34,8 @@ class JiraIssueComment
 
     public function getMentionedUsersNicknames()
     {
-        preg_match_all("/\[~([^\]]*)/", $this->body, $matches);
-        return array_pop($matches);
+        preg_match_all("(\"/\[~(.*?)\]/\",", $this->body, $matches);
+        return $matches[1];
     }
 
     public function isCommentReference()
