@@ -8,8 +8,6 @@ class JiraIssueComments
     private $maxResults;
     private $total;
     private $startAt;
-
-    //private $lastComment;
     
     public static function parse($data = null)
     {
