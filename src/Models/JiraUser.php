@@ -1,5 +1,5 @@
 <?php
-namespace JiraWebhook;
+namespace JiraWebhook\Models;
 
 class JiraUser
 {
