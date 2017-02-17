@@ -34,9 +34,8 @@ class JiraIssueComment
 
     public function getMentionedUsersNicknames()
     {
-        // TODO нужно парсить body с помощью регулярных выражений и возвращать массив никнеймов
-        preg_match_all("/\[~([^\]]*)/", $this->body, $matches);
-        return $matches;
+        preg_match_all("(\"/\[~(.*?)\]/\",", $this->body, $matches);
+        return $matches[1];
     }
 
     public function isCommentReference()
