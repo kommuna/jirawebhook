@@ -5,13 +5,13 @@ use JiraWebhook\Exceptions\JiraWebhookDataException;
 
 class JiraWebhookData
 {
-    private $rawData;
+    protected $rawData;
 
-    private $timestamp;
-    private $webhookEvent;
-    private $issueEvent;
+    protected $timestamp;
+    protected $webhookEvent;
+    protected $issueEvent;
 
-    private $issue;
+    protected $issue;
 
     public static function parse($data = null)
     {

@@ -3,11 +3,11 @@ namespace JiraWebhook\Models;
 
 class JiraIssueComments
 {
-    private $comments = [];
+    protected $comments = [];
 
-    private $maxResults;
-    private $total;
-    private $startAt;
+    protected $maxResults;
+    protected $total;
+    protected $startAt;
     
     public static function parse($data = null)
     {

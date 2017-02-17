@@ -3,14 +3,14 @@ namespace JiraWebhook\Models;
 
 class JiraUser
 {
-    private $self;
-    private $name;
-    private $key;
-    private $email;
-    private $displayName;
-    private $avatarURLs;
-    private $active;
-    private $timeZone;
+    protected $self;
+    protected $name;
+    protected $key;
+    protected $email;
+    protected $displayName;
+    protected $avatarURLs;
+    protected $active;
+    protected $timeZone;
 
     public static function parse($data = null)
     {

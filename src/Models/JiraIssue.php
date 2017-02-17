@@ -3,15 +3,15 @@ namespace JiraWebhook\Models;
 
 class JiraIssue
 {
-    private $self;
-    private $key;
-    private $issueType;
-    private $priority;
-    private $assignee;
-    private $status;
-    private $summary;
-    
-    private $issueComments;
+    protected $self;
+    protected $key;
+    protected $issueType;
+    protected $priority;
+    protected $assignee;
+    protected $status;
+    protected $summary;
+
+    protected $issueComments;
 
     public static function parse($data = null)
     {

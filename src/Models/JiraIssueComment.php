@@ -3,15 +3,15 @@ namespace JiraWebhook\Models;
 
 class JiraIssueComment
 {
-    private $self;
-    private $id;
-    private $author;
-    private $body;
-    private $updateAuthor;
-    private $created;
-    private $updated;
+    protected $self;
+    protected $id;
+    protected $author;
+    protected $body;
+    protected $updateAuthor;
+    protected $created;
+    protected $updated;
 
-    private $commentReference;
+    protected $commentReference;
 
     public static function parse($data = null)
     {
@@ -34,9 +34,8 @@ class JiraIssueComment
 
     public function getMentionedUsersNicknames()
     {
-        // TODO нужно парсить body с помощью регулярных выражений и возвращать массив никнеймов
         preg_match_all("/\[~([^\]]*)/", $this->body, $matches);
-        return $matches;
+        return array_pop($matches);
     }
 
     public function isCommentReference()
