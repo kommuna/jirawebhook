@@ -1,0 +1,17 @@
+{
+    "name": "kommuna/jirawebhook",
+    "description": "PHP classes for Atlassian Jira webhook data structure with events",
+    "keywords": ["jira", "atlassian", "webhook", "reflection"],
+    "homepage": "http://github.com/Seldaek/monolog",
+    "type": "library",
+    "license": "Unlicense",
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.4.0",
+        "league/event": "2.1.2"
+    },
+
+    "autoload": {
+        "psr-4": {"JiraWebhook\\": "src"}
+    }
+}
