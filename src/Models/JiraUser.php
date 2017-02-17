@@ -23,7 +23,7 @@ class JiraUser
         $userData->setSelf($data['self']);
         $userData->setName($data['name']);
         $userData->setKey($data['key']);
-        $userData->setEmail($data['emailAdress']);
+        $userData->setEmail($data['emailAddress']);
         $userData->setAvatarURLs($data['avatarUrls']);
         $userData->setDisplayName($data['displayName']);
         $userData->setActive($data['active']);
