@@ -5,6 +5,7 @@ use JiraWebhook\Exceptions\JiraWebhookDataException;
 
 class JiraIssue
 {
+    protected $id;
     protected $self;
     protected $key;
     protected $issueType;
@@ -32,6 +33,10 @@ class JiraIssue
             return $issueData;
         }
 
+        if (!isset($data['id'])) {
+            throw new JiraWebhookDataException('JIRA issue id does not exist!');
+        }
+
         if (!isset($data['self'])) {
             throw new JiraWebhookDataException('JIRA issue self URL does not exist!');
         }
@@ -40,6 +45,7 @@ class JiraIssue
             throw new JiraWebhookDataException('JIRA issue key does not exist!');
         }
 
+        $issueData->setID($data['id']);
         $issueData->setSelf($data['self']);
         $issueData->setKey($data['key']);
 
@@ -114,6 +120,14 @@ class JiraIssue
     /**************************************************/
 
     /**
+     * @param $id
+     */
+    public function setID($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
      * @param $self
      */
     public function setSelf($self)
@@ -178,6 +192,14 @@ class JiraIssue
     }
 
     /**************************************************/
+
+    /**
+     * @return mixed
+     */
+    public function getID()
+    {
+        return $this->id;
+    }
 
     /**
      * @return mixed
