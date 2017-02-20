@@ -58,7 +58,7 @@ class JiraIssueComment
      */
     public function getMentionedUsersNicknames()
     {
-        preg_match_all("(\"/\[~(.*?)\]/\")", $this->body, $matches);
+        preg_match_all("/\[~(.*?)\]/", $this->body, $matches);
         return $matches[1];
     }
 
