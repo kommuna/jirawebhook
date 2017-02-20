@@ -10,16 +10,36 @@ class JiraWebhook
     private static $converter = [];
     private static $emitter;
 
-    protected $callbacks = [];
-    
-    private $rawData;
-    private $data;
+    protected $rawData;
+    protected $data;
 
+    /**
+     * JiraWebhook constructor.
+     */
     public function __construct()
     {
         self::getEmitter();
     }
 
+    /**
+     * Initialize emitter
+     *
+     * @return Emitter
+     */
+    public static function getEmitter()
+    {
+        if (!self::$emitter) {
+            self::$emitter = new Emitter();
+        }
+
+        return self::$emitter;
+    }
+
+    /**
+     * Return data
+     *
+     * @return mixed
+     */
     public function getData() {
         return $this->data;
     }
@@ -36,7 +56,7 @@ class JiraWebhook
     }
 
     /**
-     * Converts $data into message (string) by converter
+     * Converts $data into message by converter
      *
      * @param $name - convertor name
      * @param $data - instance of the class JiraWebhookData
@@ -55,24 +75,10 @@ class JiraWebhook
     }
 
     /**
-     * Initialize emitter
-     *
-     * @return Emitter
-     */
-    public static function getEmitter()
-    {
-        if (!self::$emitter) {
-            self::$emitter = new Emitter();
-        }
-
-        return self::$emitter;
-    }
-
-    /**
      * Add listener for event
      *
      * @param $name - event name
-     * @param $listener - listener (it could be function or object (see docs))
+     * @param $listener - listener (it could be function or object (see league/event docs))
      * @param int $priority - listener priority
      */
     public function addListener($name, $listener, $priority = 0)
@@ -93,7 +99,7 @@ class JiraWebhook
     }
 
     /**
-     * Main logic that call events
+     * Processing data, received from from JIRA webhook by events
      *
      * @throws JiraWebhookException
      */

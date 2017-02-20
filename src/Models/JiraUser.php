@@ -1,6 +1,8 @@
 <?php
 namespace JiraWebhook\Models;
 
+use JiraWebhook\Exceptions\JiraWebhookDataException;
+
 class JiraUser
 {
     protected $self;
@@ -12,6 +14,15 @@ class JiraUser
     protected $active;
     protected $timeZone;
 
+    /**
+     * Parsing JIRA user $data
+     * 
+     * @param null $data
+     * 
+     * @return JiraUser
+     * 
+     * @throws JiraWebhookDataException
+     */
     public static function parse($data = null)
     {
         $userData = new self;
@@ -21,6 +32,11 @@ class JiraUser
         }
 
         $userData->setSelf($data['self']);
+
+        if (!isset($data['name'])) {
+            throw new JiraWebhookDataException('JIRA issue comment author name does not exist!');
+        }
+        
         $userData->setName($data['name']);
         $userData->setKey($data['key']);
         $userData->setEmail($data['emailAddress']);
@@ -32,41 +48,65 @@ class JiraUser
         return $userData;
     }
 
+    /**
+     * @param $self
+     */
     public function setSelf($self)
     {
         $this->self = $self;
     }
 
+    /**
+     * @param $name
+     */
     public function setName($name)
     {
         $this->name = $name;
     }
 
+    /**
+     * @param $key
+     */
     public function setKey($key)
     {
         $this->key = $key;
     }
 
+    /**
+     * @param $email
+     */
     public function setEmail($email)
     {
         $this->email = $email;
     }
-    
+
+    /**
+     * @param $avatarURLs
+     */
     public  function setAvatarURLs($avatarURLs)
     {
         $this->avatarURLs = $avatarURLs;
     }
 
+    /**
+     * @param $displayName
+     */
     public function setDisplayName($displayName)
     {
         $this->displayName = $displayName;
     }
 
+    /**
+     * @param $active
+     */
     public function setActive($active)
     {
         $this->active = $active;
     }
 
+    /**
+     * @param $timeZone
+     */
     public function setTimeZone($timeZone)
     {
         $this->timeZone = $timeZone;
@@ -74,41 +114,65 @@ class JiraUser
 
     /**************************************************/
 
+    /**
+     * @return mixed
+     */
     public function getSelf()
     {
         return $this->self;
     }
 
+    /**
+     * @return mixed
+     */
     public function getName()
     {
         return $this->name;
     }
 
+    /**
+     * @return mixed
+     */
     public function getKey()
     {
         return $this->key;
     }
 
+    /**
+     * @return mixed
+     */
     public function getEmail()
     {
         return $this->email;
     }
 
+    /**
+     * @return mixed
+     */
     public  function getAvatarURLs()
     {
         return $this->avatarURLs;
     }
 
+    /**
+     * @return mixed
+     */
     public function getDisplayName()
     {
         return $this->displayName;
     }
 
+    /**
+     * @return mixed
+     */
     public function getActive()
     {
         return $this->active;
     }
 
+    /**
+     * @return mixed
+     */
     public function getTimeZone()
     {
         return $this->timeZone;
