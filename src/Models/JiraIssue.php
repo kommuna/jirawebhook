@@ -32,12 +32,6 @@ class JiraIssue
             return $issueData;
         }
 
-        if (!isset($data['fields'])) {
-            throw new JiraWebhookDataException('JIRA issue fields does not exist!');
-        }
-
-        $issueFields = $data['fields'];
-
         if (!isset($data['self'])) {
             throw new JiraWebhookDataException('JIRA issue self URL does not exist!');
         }
@@ -49,13 +43,19 @@ class JiraIssue
         $issueData->setSelf($data['self']);
         $issueData->setKey($data['key']);
 
-        if (!isset($data['issuetype']['name'])) {
+        if (!isset($data['fields'])) {
+            throw new JiraWebhookDataException('JIRA issue fields does not exist!');
+        }
+
+        $issueFields = $data['fields'];
+
+        if (!isset($issueFields['issuetype']['name'])) {
             throw new JiraWebhookDataException('JIRA issue type does not exist!');
         }
 
         $issueData->setIssueType($issueFields['issuetype']['name']);
 
-        if (!isset($data['priority']['name'])) {
+        if (!isset($issueFields['priority']['name'])) {
             throw new JiraWebhookDataException('JIRA issue priority does not exist!');
         }
 
