@@ -65,12 +65,19 @@ class NewConverterClass implements JiraWebhookDataConverter
 
     public function convert(JiraWebhookData $data)
     {
-        /**
-         * Your code here
-         */
+        $message = vsprintf(
+            "Key: %s, Status: %s, Assignee: %s",
+            [
+                $issue->getKey(),
+                $issue->getStatus(),
+                $issue->getAssignee(),
+            ]
+        );
+
+        return $message;
     }
 }
 
 JiraWebhook::setConverter('converterName', new NewConverterClass());
-JiraWebhook::convert('converterName', $jiraWebhookData)
+$message = JiraWebhook::convert('converterName', $jiraWebhookData)
 ```
