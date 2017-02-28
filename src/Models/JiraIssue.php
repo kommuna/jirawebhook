@@ -1,9 +1,12 @@
 <?php
 /**
- * This file has class that parse and store issue data from JIRA
+ * This file is part of JiraWebhook.
  *
- * In this file issue data from JIRA parsed and stored in properties
- * by methods
+ * @credits https://github.com/kommuna
+ * @author  chewbacca@devadmin.com
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 namespace JiraWebhook\Models;
 
@@ -11,13 +14,60 @@ use JiraWebhook\Exceptions\JiraWebhookDataException;
 
 class JiraIssue
 {
+    /**
+     * JIRA issue id
+     *
+     * @var
+     */
     protected $id;
+
+    /**
+     * JIRA issue self URL
+     *
+     * @var
+     */
     protected $self;
+
+    /**
+     * JIRA issue key
+     *
+     * @var
+     */
     protected $key;
+
+    /**
+     * JIRA issue type
+     *
+     * @var
+     */
     protected $issueType;
+
+    /**
+     * JIRA issue priority
+     *
+     * @var
+     */
     protected $priority;
+
+    /**
+     * JIRA issue assignee user
+     *
+     * @var
+     */
     protected $assignee;
+
+    /**
+     * JIRA issue status
+     *
+     * @var
+     */
     protected $status;
+
+    /**
+     * JIRA issue summary
+     *
+     * @var
+     */
     protected $summary;
 
     /**
@@ -40,19 +90,19 @@ class JiraIssue
     {
         $issueData = new self;
 
-        if ($data === null) {
+        if (!$data) {
             return $issueData;
         }
 
-        if (!isset($data['id'])) {
+        if (empty($data['id'])) {
             throw new JiraWebhookDataException('JIRA issue id does not exist!');
         }
 
-        if (!isset($data['self'])) {
+        if (empty($data['self'])) {
             throw new JiraWebhookDataException('JIRA issue self URL does not exist!');
         }
 
-        if (!isset($data['key'])) {
+        if (empty($data['key'])) {
             throw new JiraWebhookDataException('JIRA issue key does not exist!');
         }
 
@@ -60,25 +110,26 @@ class JiraIssue
         $issueData->setSelf($data['self']);
         $issueData->setKey($data['key']);
 
-        if (!isset($data['fields'])) {
+        if (empty($data['fields'])) {
             throw new JiraWebhookDataException('JIRA issue fields does not exist!');
         }
 
         $issueFields = $data['fields'];
 
-        if (!isset($issueFields['issuetype']['name'])) {
+        if (empty($issueFields['issuetype']['name'])) {
             throw new JiraWebhookDataException('JIRA issue type does not exist!');
         }
 
         $issueData->setIssueType($issueFields['issuetype']['name']);
 
-        if (!isset($issueFields['priority']['name'])) {
+        if (empty($issueFields['priority']['name'])) {
             throw new JiraWebhookDataException('JIRA issue priority does not exist!');
         }
 
         $issueData->setPriority($issueFields['priority']['name']);
         
-        $issueData->setAssignee($issueFields['assignee']['name']);
+        $issueData->setAssignee(JiraUser::parse($issueFields['assignee']));
+        
         $issueData->setStatus($issueFields['status']['name']);
         $issueData->setSummary($issueFields['summary']);
 
@@ -88,7 +139,7 @@ class JiraIssue
     }
 
     /**
-     * Check JIRA issue priority field
+     * Check JIRA issue priority is Blocker
      * 
      * @return bool
      */
@@ -98,7 +149,7 @@ class JiraIssue
     }
 
     /**
-     * Check JIRA issue type field
+     * Check JIRA issue type is Operations
      * 
      * @return bool
      */
@@ -108,7 +159,7 @@ class JiraIssue
     }
 
     /**
-     * Check JIRA issue type field
+     * Check JIRA issue type is Urgent bug
      * 
      * @return bool
      */
@@ -118,7 +169,7 @@ class JiraIssue
     }
 
     /**
-     * Check JIRA issue status field
+     * Check JIRA issue status is Resolved
      * 
      * @return bool|int
      */

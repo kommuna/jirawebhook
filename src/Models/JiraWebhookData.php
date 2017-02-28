@@ -1,9 +1,12 @@
 <?php
 /**
- * This file has class that parse and store data from JIRA
- * 
- * In this file data from JIRA parsed and stored in properties
- * by methods
+ * This file is part of JiraWebhook.
+ *
+ * @credits https://github.com/kommuna
+ * @author  chewbacca@devadmin.com
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 namespace JiraWebhook\Models;
 
@@ -17,9 +20,26 @@ class JiraWebhookData
      * @var
      */
     protected $rawData;
-    
+
+    /**
+     * Webhook timestamp
+     *
+     * @var
+     */
     protected $timestamp;
+
+    /**
+     * Webhook event
+     *
+     * @var
+     */
     protected $webhookEvent;
+
+    /**
+     * Webhook issue event
+     *
+     * @var
+     */
     protected $issueEvent;
 
     /**
@@ -42,17 +62,17 @@ class JiraWebhookData
     {
         $webhookData = new self;
         
-        if ($data === null) {
+        if (!$data) {
             return $webhookData;
         }
         
         $webhookData->setRawData($data);
 
-        if (!isset($data['webhookEvent'])) {
+        if (empty($data['webhookEvent'])) {
             throw new JiraWebhookDataException('JIRA webhook event does not exist!');
         }
 
-        if (!isset($data['issue_event_type_name'])) {
+        if (empty($data['issue_event_type_name'])) {
             throw new JiraWebhookDataException('JIRA issue event type does not exist!');
         }
 
@@ -60,7 +80,7 @@ class JiraWebhookData
         $webhookData->setWebhookEvent($data['webhookEvent']);
         $webhookData->setIssueEvent($data['issue_event_type_name']);
 
-        if (!isset($data['issue'])) {
+        if (empty($data['issue'])) {
             throw new JiraWebhookDataException('JIRA issue event type does not exist!');
         }
 
@@ -70,7 +90,7 @@ class JiraWebhookData
     }
 
     /**
-     * Check JIRA issue event
+     * Check JIRA issue event is issue commented
      * 
      * @return bool
      */
@@ -80,7 +100,7 @@ class JiraWebhookData
     }
 
     /**
-     * Check JIRA issue event
+     * Check JIRA issue event is issue assigned
      * 
      * @return bool
      */
@@ -126,7 +146,7 @@ class JiraWebhookData
     }
 
     /**
-     * Set parsed JIRA issue data
+     * Set parsed JIRA issue data as JiraWebhook\Models\JiraIssue
      * 
      * @param $issueData
      * 

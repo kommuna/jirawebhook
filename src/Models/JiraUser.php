@@ -1,9 +1,12 @@
 <?php
 /**
- * This file has class that parse and store issue user data from JIRA
+ * This file is part of JiraWebhook.
  *
- * In this file issue user data from JIRA parsed and stored in properties
- * by methods
+ * @credits https://github.com/kommuna
+ * @author  chewbacca@devadmin.com
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 namespace JiraWebhook\Models;
 
@@ -11,13 +14,60 @@ use JiraWebhook\Exceptions\JiraWebhookDataException;
 
 class JiraUser
 {
+    /**
+     * JIRA user self URL
+     * 
+     * @var
+     */
     protected $self;
+
+    /**
+     * JIRA user name
+     * 
+     * @var
+     */
     protected $name;
+
+    /**
+     * JIRA user key
+     *
+     * @var
+     */
     protected $key;
+
+    /**
+     * JIRA user email
+     *
+     * @var
+     */
     protected $email;
+
+    /**
+     * JIRA user displayed name
+     *
+     * @var
+     */
     protected $displayName;
+
+    /**
+     * Array of JIRA user avatars
+     *
+     * @var
+     */
     protected $avatarURLs;
+
+    /**
+     * JIRA user active
+     * 
+     * @var
+     */
     protected $active;
+
+    /**
+     * JIRA user time zone
+     *
+     * @var
+     */
     protected $timeZone;
 
     /**
@@ -33,14 +83,14 @@ class JiraUser
     {
         $userData = new self;
 
-        if ($data === null) {
+        if (!$data) {
             return $userData;
         }
 
         $userData->setSelf($data['self']);
 
-        if (!isset($data['name'])) {
-            throw new JiraWebhookDataException('JIRA issue comment author name does not exist!');
+        if (empty($data['name'])) {
+            throw new JiraWebhookDataException('JIRA issue user name does not exist!');
         }
         
         $userData->setName($data['name']);

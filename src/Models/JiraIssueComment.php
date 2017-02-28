@@ -1,9 +1,12 @@
 <?php
 /**
- * This file has class that parse and store issue single comment data from JIRA
+ * This file is part of JiraWebhook.
  *
- * In this file issue single comment data from JIRA parsed and stored in properties
- * by methods
+ * @credits https://github.com/kommuna
+ * @author  chewbacca@devadmin.com
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 namespace JiraWebhook\Models;
 
@@ -11,12 +14,55 @@ use JiraWebhook\Exceptions\JiraWebhookDataException;
 
 class JiraIssueComment
 {
+    /**
+     * JIRA comment self url
+     *
+     * @var
+     */
     protected $self;
+
+    /**
+     * JIRA comemnt ID
+     *
+     * @var
+     */
     protected $id;
+
+    /**
+     * JIRA comment author
+     * JiraWebhook\Models\JiraUser
+     *
+     * @var
+     */
     protected $author;
+
+    /**
+     * JIRA comment text
+     *
+     * @var
+     */
     protected $body;
+
+    /**
+     * JIRA comment update author
+     * JiraWebhook\Models\JiraUser
+     *
+     * @var
+     */
     protected $updateAuthor;
+
+    /**
+     * JIRA comment create data time
+     *
+     * @var
+     */
     protected $created;
+
+    /**
+     * JIRA comment update data time
+     *
+     * @var
+     */
     protected $updated;
 
     /**
@@ -32,20 +78,20 @@ class JiraIssueComment
     {
         $commentData = new self;
 
-        if ($data === null) {
+        if (!$data) {
             return $commentData;
         }
 
         $commentData->setSelf($data['self']);
         $commentData->setId($data['id']);
 
-        if (!isset($data['author'])) {
+        if (empty($data['author'])) {
             throw new JiraWebhookDataException('JIRA issue comment author does not exist!');
         }
         
         $commentData->setAuthor(JiraUser::parse($data['author']));
 
-        if (!isset($data['body'])) {
+        if (empty($data['body'])) {
             throw new JiraWebhookDataException('JIRA issue comment body does not exist!');
         }
         

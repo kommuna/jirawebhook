@@ -1,9 +1,12 @@
 <?php
 /**
- * This file has class that parse and store issue comments data from JIRA
+ * This file is part of JiraWebhook.
  *
- * In this file issue comments data from JIRA parsed and stored in properties
- * by methods
+ * @credits https://github.com/kommuna
+ * @author  chewbacca@devadmin.com
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 namespace JiraWebhook\Models;
 
@@ -18,8 +21,25 @@ class JiraIssueComments
      */
     protected $comments = [];
 
+    /**
+     * JIRA comments max results
+     *
+     * @var
+     */
     protected $maxResults;
+
+    /**
+     * Total number of comments
+     *
+     * @var
+     */
     protected $total;
+
+    /**
+     * JIRA comments start at
+     *
+     * @var
+     */
     protected $startAt;
 
     /**
@@ -35,7 +55,11 @@ class JiraIssueComments
     {
         $issueCommentsData = new self;
 
-        if (!isset($data['comments'])) {
+        if (!$data) {
+            return $issueCommentsData;
+        }
+
+        if (empty($data['comments'])) {
             throw new JiraWebhookDataException('JIRA issue comments does not exist!');
         }
 

@@ -1,9 +1,12 @@
 <?php
 /**
- * This file realized work with data from JIRA
+ * This file is part of JiraWebhook.
  *
- * This file contains method that can parse data from JIRA,
- * setting up the events and converters
+ * @credits https://github.com/kommuna
+ * @author  chewbacca@devadmin.com
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 namespace JiraWebhook;
 
@@ -28,14 +31,14 @@ class JiraWebhook
     private static $emitter;
 
     /**
-     * Expected raw data from JIRA webhook
+     * Raw data from JIRA webhook
      *
      * @var
      */
     protected $rawData;
 
     /**
-     * Expected parsed data from JIRA webhook
+     * Parsed data from JIRA webhook
      * JiraWebhook\Models\JiraWebhookData
      *
      * @var
