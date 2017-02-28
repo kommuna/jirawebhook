@@ -46,7 +46,7 @@ try {
     $jiraWebhook->run();
 } catch (\Exception $e) {
      error_log($e->getMessage());
- }
+}
 ```
 
 The `$eventName` must be some data from the [JiraWebhook\Models\JiraWebhookData]
@@ -65,6 +65,8 @@ class NewConverterClass implements JiraWebhookDataConverter
 
     public function convert(JiraWebhookData $data)
     {
+        $issue = $data->getIssue();
+
         $message = vsprintf(
             "Key: %s, Status: %s, Assignee: %s",
             [
