@@ -1,4 +1,10 @@
 <?php
+/**
+ * This file has class that parse and store issue user data from JIRA
+ *
+ * In this file issue user data from JIRA parsed and stored in properties
+ * by methods
+ */
 namespace JiraWebhook\Models;
 
 use JiraWebhook\Exceptions\JiraWebhookDataException;

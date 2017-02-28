@@ -3,13 +3,14 @@ namespace JiraWebhook;
 
 use JiraWebhook\Models\JiraWebhookData;
 
-abstract class JiraWebhookDataConverter
+interface JiraWebhookDataConverter
 {
     /**
      * Convert $data into message
      *
-     * @param JiraWebhookData $data - data from JIRA webhook
+     * @param JiraWebhookData $data parsed data from JIRA webhook
+     * 
      * @return mixed
      */
-    abstract public function convert(JiraWebhookData $data);
+    public function convert(JiraWebhookData $data);
 }

@@ -1,4 +1,10 @@
 <?php
+/**
+ * This file has class that parse and store issue data from JIRA
+ *
+ * In this file issue data from JIRA parsed and stored in properties
+ * by methods
+ */
 namespace JiraWebhook\Models;
 
 use JiraWebhook\Exceptions\JiraWebhookDataException;
@@ -14,6 +20,11 @@ class JiraIssue
     protected $status;
     protected $summary;
 
+    /**
+     * JiraWebhook\Models\JiraIssueComments
+     *
+     * @var
+     */
     protected $issueComments;
 
     /**
@@ -184,6 +195,8 @@ class JiraIssue
     }
 
     /**
+     * Set parsed JIRA issue comments data
+     *
      * @param $issueComments
      */
     public function setIssueComments($issueComments)

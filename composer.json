@@ -2,7 +2,7 @@
     "name": "kommuna/jirawebhook",
     "description": "PHP classes for Atlassian Jira webhook data structure with events",
     "keywords": ["jira", "atlassian", "webhook", "reflection"],
-    "homepage": "http://github.com/Seldaek/monolog",
+    "homepage": "https://github.com/kommuna/jirawebhook",
     "type": "library",
     "license": "Unlicense",
     "minimum-stability": "dev",

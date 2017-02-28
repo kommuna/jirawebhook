@@ -1,16 +1,32 @@
 <?php
+/**
+ * This file has class that parse and store data from JIRA
+ * 
+ * In this file data from JIRA parsed and stored in properties
+ * by methods
+ */
 namespace JiraWebhook\Models;
 
 use JiraWebhook\Exceptions\JiraWebhookDataException;
 
 class JiraWebhookData
 {
+    /**
+     * Decoded raw data
+     * 
+     * @var
+     */
     protected $rawData;
-
+    
     protected $timestamp;
     protected $webhookEvent;
     protected $issueEvent;
 
+    /**
+     * JiraWebhook\Models\JiraIssue
+     * 
+     * @var
+     */
     protected $issue;
 
     /**
@@ -110,6 +126,8 @@ class JiraWebhookData
     }
 
     /**
+     * Set parsed JIRA issue data
+     * 
      * @param $issueData
      * 
      * @throws JiraWebhookDataException

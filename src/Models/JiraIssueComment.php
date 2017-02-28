@@ -1,4 +1,10 @@
 <?php
+/**
+ * This file has class that parse and store issue single comment data from JIRA
+ *
+ * In this file issue single comment data from JIRA parsed and stored in properties
+ * by methods
+ */
 namespace JiraWebhook\Models;
 
 use JiraWebhook\Exceptions\JiraWebhookDataException;
@@ -52,7 +58,7 @@ class JiraIssueComment
     }
 
     /**
-     * Get array of referenced users in comment
+     * Get array of user nicknames that referenced comment
      *
      * @return mixed
      */
@@ -60,16 +66,6 @@ class JiraIssueComment
     {
         preg_match_all("/\[~(.*?)\]/", $this->body, $matches);
         return $matches[1];
-    }
-
-    /**
-     * Check comment for references to users
-     *
-     * @return int
-     */
-    public function isCommentReference()
-    {
-        return stripos($this->body, '[~');
     }
 
     /**

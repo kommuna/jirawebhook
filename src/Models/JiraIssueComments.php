@@ -1,10 +1,21 @@
 <?php
+/**
+ * This file has class that parse and store issue comments data from JIRA
+ *
+ * In this file issue comments data from JIRA parsed and stored in properties
+ * by methods
+ */
 namespace JiraWebhook\Models;
 
 use JiraWebhook\Exceptions\JiraWebhookDataException;
 
 class JiraIssueComments
 {
+    /**
+     * Contains array of JiraWebhook\Models\JiraIssueComment
+     * 
+     * @var array
+     */
     protected $comments = [];
 
     protected $maxResults;
@@ -40,11 +51,10 @@ class JiraIssueComments
     }
 
     /**
-     * Set single comment as object
+     * Set parsed single comment
      *
-     * @param $key
-     *
-     * @param $comment
+     * @param $key     array keu
+     * @param $comment comment data
      *
      * @throws JiraWebhookDataException
      */
