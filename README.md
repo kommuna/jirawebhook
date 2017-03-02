@@ -88,7 +88,33 @@ $message = JiraWebhook::convert('converterName', $jiraWebhookData)
 
 Jira webhooks format example:
 
-```json
+```
+FORM/POST PARAMETERS
+None
+
+QUERYSTRING
+user_key: admin
+user_id: admin
+
+HEADERS
+Cf-Connecting-Ip: 104.192.136.151
+Content-Length: 5929
+Total-Route-Time: 0
+Accept: */*
+Accept-Encoding: gzip
+Connect-Time: 1
+Cache-Control: max-age=0
+Host: requestb.in
+X-Request-Id: a52b9ab4-d1c5-4bc3-bde9-69f00da76eda
+User-Agent: Atlassian HttpClient unknown / JIRA-1000.789.2 (100032) / Default
+Content-Type: application/json; charset=UTF-8
+Cf-Ipcountry: US
+Cf-Visitor: {"scheme":"http"}
+Via: 1.1 localhost (Apache-HttpClient/4.4.1 (cache)), 1.1 squid-106-1 (squid/3.4.8), 1.1 vegur
+Cf-Ray: 3390de26c78f5711-IAD
+Connection: close
+
+RAW BODY
 {
     "timestamp": 1488421130059,
     "webhookEvent": "jira:issue_created",
