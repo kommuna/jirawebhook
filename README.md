@@ -1,7 +1,8 @@
 #What is this?
 This is PHP classes for Atlassian JIRA webhook data structure with events.
 
-This library contains classes that can parse data from JIRA webhook, create data converters and events.
+This library contains classes that can parse data from [JIRA webhook]
+(https://developer.atlassian.com/jiradev/jira-apis/webhooks), create data converters and events.
 
 #Installation
 With composer, create a new composer.json file and add the following code:
