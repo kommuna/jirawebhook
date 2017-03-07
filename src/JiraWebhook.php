@@ -164,7 +164,7 @@ class JiraWebhook
      */
     public function extractData($data = null)
     {
-        $this->rawData = json_decode($data ? : $this->rawData, true);
+        $this->rawData = json_decode($data ? $data : $this->rawData, true);
         $jsonError = json_last_error();
 
         if ($jsonError !== JSON_ERROR_NONE) {
