@@ -94,8 +94,8 @@ class JiraWebhook
     /**
      * Set $converter for formatting messages
      *
-     * @param                          $name      callable converter name
-     * @param JiraWebhookDataConverter $converter          object that extend JiraWebhookDataConverter
+     * @param string                   $name      converter name
+     * @param JiraWebhookDataConverter $converter object that extend JiraWebhookDataConverter
      */
     public static function setConverter($name, JiraWebhookDataConverter $converter)
     {
@@ -105,8 +105,8 @@ class JiraWebhook
     /**
      * Converts $data into message by converter
      *
-     * @param                 $name callable convertor name
-     * @param JiraWebhookData $data          instance of the class JiraWebhookData
+     * @param string          $name converter name
+     * @param JiraWebhookData $data instance of the class JiraWebhookData
      *
      * @return mixed
      *
@@ -124,9 +124,9 @@ class JiraWebhook
     /**
      * Add listener for event
      *
-     * @param     $name     callable event name
-     * @param     $listener callable listener (it could be function or object (see league/event docs))
-     * @param int $priority          listener priority
+     * @param string   $name     event name
+     * @param callable $listener listener (it could be function or object (see league/event docs))
+     * @param int      $priority listener priority
      */
     public function addListener($name, $listener, $priority = 0)
     {
@@ -136,8 +136,8 @@ class JiraWebhook
     /**
      * Call listener by event $name
      *
-     * @param      $name callable event name
-     * @param null $data
+     * @param string $name event name
+     * @param null   $data
      */
     public function on($name, $data = null)
     {
