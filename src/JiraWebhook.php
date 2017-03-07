@@ -151,7 +151,7 @@ class JiraWebhook
      */
     public function run($data = null)
     {
-        $data = $this->extractData();
+        $data = $this->extractData($data);
         $this->on($data->getWebhookEvent(), $data);
     }
     
