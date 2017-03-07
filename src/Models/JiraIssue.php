@@ -43,6 +43,13 @@ class JiraIssue
     protected $issueType;
 
     /**
+     * JIRA issue project name
+     *
+     * @var
+     */
+    protected $projectName;
+
+    /**
      * JIRA issue priority
      *
      * @var
@@ -121,6 +128,7 @@ class JiraIssue
         }
 
         $issueData->setIssueType($issueFields['issuetype']['name']);
+        $issueData->setProjectName($issueFields['project']['name']);
 
         if (empty($issueFields['priority']['name'])) {
             throw new JiraWebhookDataException('JIRA issue priority does not exist!');
@@ -214,6 +222,14 @@ class JiraIssue
     }
 
     /**
+     * @param $projectName
+     */
+    public function setProjectName($projectName)
+    {
+        $this->projectName = $projectName;
+    }
+
+    /**
      * @param $priority
      */
     public function setPriority($priority)
@@ -287,6 +303,14 @@ class JiraIssue
     public function getIssueType()
     {
         return $this->issueType;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProjectName()
+    {
+        return $this->projectName;
     }
 
     /**

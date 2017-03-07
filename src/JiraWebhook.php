@@ -48,9 +48,9 @@ class JiraWebhook
     /**
      * JiraWebhook constructor.
      *
-     * @param $rawData raw data from JIRA webhook
+     * @param null $rawData raw data from JIRA webhook
      */
-    public function __construct($rawData)
+    public function __construct($rawData = null)
     {
         $this->rawData = $rawData;
 
@@ -60,7 +60,7 @@ class JiraWebhook
     /**
      * Initialize emitter
      *
-     * @return Emitter
+     * @return mixed Emitter
      */
     public static function getEmitter()
     {
@@ -74,7 +74,7 @@ class JiraWebhook
     /**
      * Return raw data
      * 
-     * @return raw
+     * @return mixed raw|null
      */
     public function getRawData()
     {
@@ -94,8 +94,8 @@ class JiraWebhook
     /**
      * Set $converter for formatting messages
      *
-     * @param                          $name      converter name
-     * @param JiraWebhookDataConverter $converter object that extend JiraWebhookDataConverter
+     * @param                          $name      callable converter name
+     * @param JiraWebhookDataConverter $converter          object that extend JiraWebhookDataConverter
      */
     public static function setConverter($name, JiraWebhookDataConverter $converter)
     {
@@ -105,8 +105,8 @@ class JiraWebhook
     /**
      * Converts $data into message by converter
      *
-     * @param                 $name convertor name
-     * @param JiraWebhookData $data instance of the class JiraWebhookData
+     * @param                 $name callable convertor name
+     * @param JiraWebhookData $data          instance of the class JiraWebhookData
      *
      * @return mixed
      *
@@ -124,9 +124,9 @@ class JiraWebhook
     /**
      * Add listener for event
      *
-     * @param     $name     event name
-     * @param     $listener listener (it could be function or object (see league/event docs))
-     * @param int $priority listener priority
+     * @param     $name     callable event name
+     * @param     $listener callable listener (it could be function or object (see league/event docs))
+     * @param int $priority          listener priority
      */
     public function addListener($name, $listener, $priority = 0)
     {
@@ -136,7 +136,7 @@ class JiraWebhook
     /**
      * Call listener by event $name
      *
-     * @param      $name event name
+     * @param      $name callable event name
      * @param null $data
      */
     public function on($name, $data = null)
@@ -149,7 +149,7 @@ class JiraWebhook
      *
      * @throws JiraWebhookException
      */
-    public function run()
+    public function run($data = null)
     {
         $data = $this->extractData();
         $this->on($data->getWebhookEvent(), $data);
@@ -162,9 +162,9 @@ class JiraWebhook
      *
      * @throws JiraWebhookException
      */
-    public function extractData()
+    public function extractData($data = null)
     {
-        $this->rawData = json_decode($this->rawData, true);
+        $this->rawData = json_decode($data ? : $this->rawData, true);
         $jsonError = json_last_error();
 
         if ($jsonError !== JSON_ERROR_NONE) {
