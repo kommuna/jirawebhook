@@ -55,7 +55,7 @@ class JiraIssueComments
     {
         $issueCommentsData = new self;
 
-        if (!$data || empty($data['comments'])) {
+        if (!$data) {
             return $issueCommentsData;
         }
 
