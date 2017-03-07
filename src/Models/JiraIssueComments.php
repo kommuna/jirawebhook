@@ -55,13 +55,9 @@ class JiraIssueComments
     {
         $issueCommentsData = new self;
 
-        if (!$data) {
+        if (!$data || empty($data['comments'])) {
             return $issueCommentsData;
         }
-
-        /*if (empty($data['comments'])) {
-            throw new JiraWebhookDataException('JIRA issue comments does not exist!');
-        }*/
 
         foreach ($data['comments'] as $key => $comment) {
             $issueCommentsData->setComment($key, $comment);
