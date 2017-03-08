@@ -1,6 +1,6 @@
 <?php
 /**
- * This file contains class that pars JIRA issue data and gives access to it.
+ * Class that pars JIRA issue data and gives access to it.
  *
  * @credits https://github.com/kommuna
  * @author  chewbacca@devadmin.com

@@ -1,6 +1,6 @@
 <?php
 /**
- * This file contains exception class for JiraWebhook.
+ * Exception class for JiraWebhook.
  *
  * @credits https://github.com/kommuna
  * @author  chewbacca@devadmin.com

@@ -1,6 +1,6 @@
 <?php
 /**
- * This file contains class with methods for parsing data from JIRA webhook, setting converters and listeners for events.
+ * Class with methods for parsing data from JIRA webhook, setting converters and listeners for events.
  *
  * @credits https://github.com/kommuna
  * @author  chewbacca@devadmin.com

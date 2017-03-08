@@ -1,6 +1,6 @@
 <?php
 /**
- * This file contains interface for JiraWebhookData converters.
+ * Interface for JiraWebhookData converters.
  *
  * @credits https://github.com/kommuna
  * @author  chewbacca@devadmin.com
