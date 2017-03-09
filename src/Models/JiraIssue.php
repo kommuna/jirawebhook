@@ -88,7 +88,7 @@ class JiraIssue
      * Parsing JIRA issue $data
      * 
      * @param null $data
-     * 
+     *
      * @return JiraIssue
      * 
      * @throws JiraWebhookDataException
@@ -101,6 +101,30 @@ class JiraIssue
             return $issueData;
         }
 
+        $issueData->validate($data);
+
+        $issueFields = $data['fields'];
+
+        $issueData->setID($data['id']);
+        $issueData->setSelf($data['self']);
+        $issueData->setKey($data['key']);
+        $issueData->setIssueType($issueFields['issuetype']['name']);
+        $issueData->setProjectName($issueFields['project']['name']);
+        $issueData->setPriority($issueFields['priority']['name']);
+        $issueData->setAssignee(JiraUser::parse($issueFields['assignee']));
+        $issueData->setStatus($issueFields['status']['name']);
+        $issueData->setSummary($issueFields['summary']);
+        $issueData->setIssueComments(JiraIssueComments::parse($data['fields']['comment']));
+
+        return $issueData;
+    }
+
+    /**
+     * @param $data
+     * @throws JiraWebhookDataException
+     */
+    public function validate($data)
+    {
         if (empty($data['id'])) {
             throw new JiraWebhookDataException('JIRA issue id does not exist!');
         }
@@ -113,37 +137,17 @@ class JiraIssue
             throw new JiraWebhookDataException('JIRA issue key does not exist!');
         }
 
-        $issueData->setID($data['id']);
-        $issueData->setSelf($data['self']);
-        $issueData->setKey($data['key']);
-
         if (empty($data['fields'])) {
             throw new JiraWebhookDataException('JIRA issue fields does not exist!');
         }
 
-        $issueFields = $data['fields'];
-
-        if (empty($issueFields['issuetype']['name'])) {
+        if (empty($data['fields']['issuetype']['name'])) {
             throw new JiraWebhookDataException('JIRA issue type does not exist!');
         }
 
-        $issueData->setIssueType($issueFields['issuetype']['name']);
-        $issueData->setProjectName($issueFields['project']['name']);
-
-        if (empty($issueFields['priority']['name'])) {
+        if (empty($data['fields']['priority']['name'])) {
             throw new JiraWebhookDataException('JIRA issue priority does not exist!');
         }
-
-        $issueData->setPriority($issueFields['priority']['name']);
-        
-        $issueData->setAssignee(JiraUser::parse($issueFields['assignee']));
-        
-        $issueData->setStatus($issueFields['status']['name']);
-        $issueData->setSummary($issueFields['summary']);
-
-        $issueData->setIssueComments(JiraIssueComments::parse($data['fields']['comment']));
-
-        return $issueData;
     }
 
     /**

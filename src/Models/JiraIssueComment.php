@@ -22,7 +22,7 @@ class JiraIssueComment
     protected $self;
 
     /**
-     * JIRA comemnt ID
+     * JIRA comment ID
      *
      * @var
      */
@@ -82,25 +82,31 @@ class JiraIssueComment
             return $commentData;
         }
 
+        $commentData->validate($data);
+
         $commentData->setSelf($data['self']);
         $commentData->setId($data['id']);
-
-        if (empty($data['author'])) {
-            throw new JiraWebhookDataException('JIRA issue comment author does not exist!');
-        }
-        
         $commentData->setAuthor(JiraUser::parse($data['author']));
-
-        if (empty($data['body'])) {
-            throw new JiraWebhookDataException('JIRA issue comment body does not exist!');
-        }
-        
         $commentData->setBody($data['body']);
         $commentData->setUpdateAuthor(JiraUser::parse($data['updateAuthor']));
         $commentData->setCreated($data['created']);
         $commentData->setUpdated($data['updated']);
 
         return $commentData;
+    }
+
+    /**
+     * @param $data
+     * @throws JiraWebhookDataException
+     */
+    public function validate($data)
+    {
+        if (empty($data['author'])) {
+            throw new JiraWebhookDataException('JIRA issue comment author does not exist!');
+        }
+        if (empty($data['body'])) {
+            throw new JiraWebhookDataException('JIRA issue comment body does not exist!');
+        }
     }
 
     /**

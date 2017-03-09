@@ -87,12 +87,9 @@ class JiraUser
             return $userData;
         }
 
-        $userData->setSelf($data['self']);
+        $userData->validate($data);
 
-        if (empty($data['name'])) {
-            throw new JiraWebhookDataException('JIRA issue user name does not exist!');
-        }
-        
+        $userData->setSelf($data['self']);
         $userData->setName($data['name']);
         $userData->setKey($data['key']);
         $userData->setEmail($data['emailAddress']);
@@ -102,6 +99,17 @@ class JiraUser
         $userData->setTimeZone($data['timeZone']);
 
         return $userData;
+    }
+
+    /**
+     * @param $data
+     * @throws JiraWebhookDataException
+     */
+    public function validate($data)
+    {
+        if (empty($data['name'])) {
+            throw new JiraWebhookDataException('JIRA issue user name does not exist!');
+        }
     }
 
     /**
