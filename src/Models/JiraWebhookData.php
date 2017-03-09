@@ -68,25 +68,33 @@ class JiraWebhookData
         
         $webhookData->setRawData($data);
 
-        if (empty($data['webhookEvent'])) {
-            throw new JiraWebhookDataException('JIRA webhook event does not exist!');
-        }
-
-        if (empty($data['issue_event_type_name'])) {
-            throw new JiraWebhookDataException('JIRA issue event type does not exist!');
-        }
+        $webhookData->validate($data);
 
         $webhookData->setTimestamp($data['timestamp']);
         $webhookData->setWebhookEvent($data['webhookEvent']);
         $webhookData->setIssueEvent($data['issue_event_type_name']);
-
-        if (empty($data['issue'])) {
-            throw new JiraWebhookDataException('JIRA issue event type does not exist!');
-        }
-
         $webhookData->setIssue($data['issue']);
 
         return $webhookData;
+    }
+
+    /**
+     * @param $data
+     * @throws JiraWebhookDataException
+     */
+    public function validate($data)
+    {
+        if (empty($data['webhookEvent'])) {
+            throw new JiraWebhookDataException('JIRA webhook event not set!');
+        }
+
+        if (empty($data['issue_event_type_name'])) {
+            throw new JiraWebhookDataException('JIRA issue event type not set!');
+        }
+
+        if (empty($data['issue'])) {
+            throw new JiraWebhookDataException('JIRA issue not set!');
+        }
     }
 
     /**
