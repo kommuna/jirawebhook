@@ -13,5 +13,9 @@
 
     "autoload": {
         "psr-4": {"JiraWebhook\\": "src"}
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.7",
+        "fzaninotto/faker": "^1.6"
     }
 }
