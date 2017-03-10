@@ -118,7 +118,7 @@ class JiraIssueComments
     }
 
     /**
-     * @return mixed
+     * @return integer
      */
     public function getMaxResults()
     {
@@ -126,7 +126,7 @@ class JiraIssueComments
     }
 
     /**
-     * @return mixed
+     * @return integer
      */
     public function getTotal()
     {
@@ -144,7 +144,7 @@ class JiraIssueComments
     /**
      * Get object of last comment
      * 
-     * @return mixed
+     * @return JiraIssueComment
      */
     public function getLastComment()
     {
@@ -154,7 +154,7 @@ class JiraIssueComments
     /**
      * Get author name of last comment
      * 
-     * @return mixed
+     * @return string
      */
     public function getLastCommenterName()
     {
@@ -164,7 +164,7 @@ class JiraIssueComments
     /**
      * Get body (text) of last comment
      * 
-     * @return mixed
+     * @return string
      */
     public function getLastCommentBody()
     {

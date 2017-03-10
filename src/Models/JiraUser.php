@@ -187,7 +187,7 @@ class JiraUser
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getName()
     {
