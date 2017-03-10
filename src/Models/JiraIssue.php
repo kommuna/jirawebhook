@@ -165,7 +165,7 @@ class JiraIssue
      * 
      * @return bool
      */
-    public function isTypeOprations()
+    public function isTypeOperations()
     {
         return $this->getIssueType() === 'Operations';
     }
