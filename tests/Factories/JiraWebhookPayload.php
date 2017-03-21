@@ -109,9 +109,84 @@ class JiraWebhookPayloadFactory
                         ]
                     ],
                     "comment" => [
-                        "comments" => [],
-                        "maxResults" => 0,
-                        "total" => 0,
+                        "comments" => [
+                            [
+                                "self" => $faker->url,
+                                "id" => $faker->numberBetween(0,100000),
+                                "author" => [
+                                    "self" => $faker->url,
+                                    "name" => $faker->name,
+                                    "key" => $faker->word,
+                                    "emailAddress" => $faker->email,
+                                    'avatarUrls' => [
+                                        '48x48' => $faker->url,
+                                        '24x24' => $faker->url,
+                                        '32x32' => $faker->url,
+                                        '16x16' => $faker->url
+                                    ],
+                                    "displayName" => $faker->name,
+                                    "active" => true,
+                                    "timeZone" => $faker->timezone
+                                ],
+                                "body" => $faker->sentence,
+                                "updateAuthor" => [
+                                    "self" => $faker->url,
+                                    "name" => $faker->name,
+                                    "key" => $faker->word,
+                                    "emailAddress" => $faker->email,
+                                    'avatarUrls' => [
+                                        '48x48' => $faker->url,
+                                        '24x24' => $faker->url,
+                                        '32x32' => $faker->url,
+                                        '16x16' => $faker->url
+                                    ],
+                                    "displayName" => $faker->name,
+                                    "active" => true,
+                                    "timeZone" => $faker->timezone
+                                ],
+                                "created" => $faker->dateTime,
+                                "updated" => $faker->dateTime
+                            ],
+                            [
+                                "self" => $faker->url,
+                                "id" => $faker->numberBetween(0,100000),
+                                "author" => [
+                                    "self" => $faker->url,
+                                    "name" => $faker->name,
+                                    "key" => $faker->word,
+                                    "emailAddress" => $faker->email,
+                                    'avatarUrls' => [
+                                        '48x48' => $faker->url,
+                                        '24x24' => $faker->url,
+                                        '32x32' => $faker->url,
+                                        '16x16' => $faker->url
+                                    ],
+                                    "displayName" => $faker->name,
+                                    "active" => true,
+                                    "timeZone" => $faker->timezone
+                                ],
+                                "body" => $faker->sentence,
+                                "updateAuthor" => [
+                                    "self" => $faker->url,
+                                    "name" => $faker->name,
+                                    "key" => $faker->word,
+                                    "emailAddress" => $faker->email,
+                                    'avatarUrls' => [
+                                        '48x48' => $faker->url,
+                                        '24x24' => $faker->url,
+                                        '32x32' => $faker->url,
+                                        '16x16' => $faker->url
+                                    ],
+                                    "displayName" => $faker->name,
+                                    "active" => true,
+                                    "timeZone" => $faker->timezone
+                                ],
+                                "created" => $faker->dateTime,
+                                "updated" => $faker->dateTime
+                            ]
+                        ],
+                        "maxResults" => 10,
+                        "total" => 2,
                         "startAt" => 0
                     ],
                 ],

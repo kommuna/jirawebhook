@@ -1,12 +1,10 @@
 <?php
 /**
- * Created by PhpStorm.
  * Author: Elena Kolevska
- * Date: 3/9/17
- * Time: 23:43
  */
 namespace JiraWebhook\Tests;
 
+use JiraWebhook\Models\JiraIssue;
 use PHPUnit_Framework_TestCase;
 use JiraWebhook\Models\JiraWebhookData;
 use JiraWebhook\Exceptions\JiraWebhookDataException;
@@ -14,7 +12,7 @@ use JiraWebhook\Tests\Factories\JiraWebhookPayloadFactory;
 
 class JiraWebhookDataTest extends PHPUnit_Framework_TestCase {
 
-    protected $issue_created_payload;
+    protected $payload;
 
     public function setUp()
     {
@@ -23,20 +21,32 @@ class JiraWebhookDataTest extends PHPUnit_Framework_TestCase {
 
     public function testExceptionIsThrownWhenWebhookEventIsntSpecified()
     {
-        $this->issue_created_payload['webhookEvent'] = null;
+        $this->payload['webhookEvent'] = null;
         $this->expectException(JiraWebhookDataException::class);
-        JiraWebhookData::parse($this->issue_created_payload);
+        JiraWebhookData::parse($this->payload);
     }
     public function testExceptionIsThrownWhenIssueEventTypeIsntSpecified()
     {
-        $this->issue_created_payload['issue_event_type_name'] = null;
+        $this->payload['issue_event_type_name'] = null;
         $this->expectException(JiraWebhookDataException::class);
-        JiraWebhookData::parse($this->issue_created_payload);
+        JiraWebhookData::parse($this->payload);
     }
     public function testExceptionIsThrownWhenIssueIsntSpecified()
     {
-        $this->issue_created_payload['issue'] = null;
+        $this->payload['issue'] = null;
         $this->expectException(JiraWebhookDataException::class);
-        JiraWebhookData::parse($this->issue_created_payload);
+        JiraWebhookData::parse($this->payload);
+    }
+
+    public function testParse()
+    {
+        $webhookData = JiraWebhookData::parse($this->payload);
+
+        $this->assertEquals($this->payload, $webhookData->getRawData());
+        $this->assertEquals($this->payload['timestamp'], $webhookData->getTimestamp());
+        $this->assertEquals($this->payload['webhookEvent'], $webhookData->getWebhookEvent());
+        $this->assertEquals($this->payload['issue_event_type_name'], $webhookData->getIssueEvent());
+        $this->assertInstanceOf(JiraIssue::class, $webhookData->getIssue());
+
     }
 }

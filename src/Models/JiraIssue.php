@@ -188,11 +188,11 @@ class JiraIssue
     public function isStatusResolved()
     {
         // This is cause in devadmin JIRA status 'Resolved' has japanese symbols
-        return strpos($this->getStatus(), 'Resolved');
+        return strpos($this->getStatus(), 'Resolved') !== false;
     }
 
     /**
-     * Check JIRA issue status is Close
+     * Check if JIRA issue status is Close
      *
      * @return bool|int
      */

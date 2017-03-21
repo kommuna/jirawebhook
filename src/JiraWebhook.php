@@ -60,7 +60,7 @@ class JiraWebhook
     /**
      * Initialize emitter
      *
-     * @return mixed Emitter
+     * @return Emitter
      */
     public static function getEmitter()
     {
@@ -95,7 +95,7 @@ class JiraWebhook
      * Set $converter for formatting messages
      *
      * @param string                   $name      converter name
-     * @param JiraWebhookDataConverter $converter object that extend JiraWebhookDataConverter
+     * @param JiraWebhookDataConverter $converter object that extends JiraWebhookDataConverter
      */
     public static function setConverter($name, JiraWebhookDataConverter $converter)
     {
@@ -139,7 +139,7 @@ class JiraWebhook
      * @param string $name event name
      * @param null   $data
      */
-    public function on($name, $data = null)
+    public function trigger($name, $data = null)
     {
         self::$emitter->emit($name, $data);
     }
@@ -152,7 +152,7 @@ class JiraWebhook
     public function run($data = null)
     {
         $data = $this->extractData($data);
-        $this->on($data->getWebhookEvent(), $data);
+        $this->trigger($data->getWebhookEvent(), $data);
     }
     
     /**

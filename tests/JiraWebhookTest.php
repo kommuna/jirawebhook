@@ -1,8 +1,6 @@
 <?php
 /**
  * Author: Elena Kolevska
- * Date: 3/9/17
- * Time: 23:43
  */
 
 namespace JiraWebhook\Tests;
