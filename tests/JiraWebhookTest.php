@@ -5,11 +5,11 @@
 
 namespace JiraWebhook\Tests;
 
-use JiraWebhook\Models\JiraWebhookData;
-use JiraWebhook\Tests\Factories\JiraWebhookPayloadFactory;
-use PHPUnit_Framework_TestCase;
 use \JiraWebhook\JiraWebhook;
+use PHPUnit_Framework_TestCase;
+use JiraWebhook\Models\JiraWebhookData;
 use \JiraWebhook\Exceptions\JiraWebhookException;
+use JiraWebhook\Tests\Factories\JiraWebhookPayloadFactory;
 
 class JiraWebhookTest extends PHPUnit_Framework_TestCase
 {

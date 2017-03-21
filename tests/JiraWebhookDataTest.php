@@ -4,12 +4,15 @@
  */
 namespace JiraWebhook\Tests;
 
-use JiraWebhook\Models\JiraIssue;
 use PHPUnit_Framework_TestCase;
+use JiraWebhook\Models\JiraIssue;
 use JiraWebhook\Models\JiraWebhookData;
 use JiraWebhook\Exceptions\JiraWebhookDataException;
 use JiraWebhook\Tests\Factories\JiraWebhookPayloadFactory;
 
+/**
+ * @property  array payload
+ */
 class JiraWebhookDataTest extends PHPUnit_Framework_TestCase {
 
     protected $payload;
@@ -47,6 +50,5 @@ class JiraWebhookDataTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals($this->payload['webhookEvent'], $webhookData->getWebhookEvent());
         $this->assertEquals($this->payload['issue_event_type_name'], $webhookData->getIssueEvent());
         $this->assertInstanceOf(JiraIssue::class, $webhookData->getIssue());
-
     }
 }

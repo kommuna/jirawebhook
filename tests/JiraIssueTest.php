@@ -4,16 +4,19 @@
  */
 namespace JiraWebhook\Tests;
 
-use JiraWebhook\Exceptions\JiraWebhookDataException;
-use JiraWebhook\Models\JiraIssueComments;
 use PHPUnit_Framework_TestCase;
 use JiraWebhook\Models\JiraUser;
 use JiraWebhook\Models\JiraIssue;
+use JiraWebhook\Models\JiraIssueComments;
+use JiraWebhook\Exceptions\JiraWebhookDataException;
 use JiraWebhook\Tests\Factories\JiraWebhookPayloadFactory;
 
+/**
+ * @property  array issueData
+ */
 class JiraIssueTest extends PHPUnit_Framework_TestCase {
 
-    protected $issueData;
+    private $issueData;
 
     public function setUp()
     {
@@ -33,7 +36,6 @@ class JiraIssueTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals($this->issueData['fields']['priority']['name'], $issue->getPriority());
         $this->assertEquals($this->issueData['fields']['status']['name'], $issue->getStatus());
         $this->assertEquals($this->issueData['fields']['summary'], $issue->getSummary());
-
         $this->assertInstanceOf(JiraUser::class, $issue->getAssignee());
         $this->assertInstanceOf(JiraIssueComments::class, $issue->getIssueComments());
     }

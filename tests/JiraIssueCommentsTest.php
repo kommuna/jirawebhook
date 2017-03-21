@@ -8,9 +8,12 @@ use JiraWebhook\Models\JiraIssueComments;
 use PHPUnit_Framework_TestCase;
 use JiraWebhook\Tests\Factories\JiraWebhookPayloadFactory;
 
+/**
+ * @property  array issueCommentsData
+ */
 class JiraIssueCommentsTest extends PHPUnit_Framework_TestCase {
 
-    protected $issueData;
+    protected $issueCommentsData;
 
     public function setUp()
     {
@@ -26,9 +29,6 @@ class JiraIssueCommentsTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals($this->issueCommentsData['total'], $issueComments->getTotal());
         $this->assertEquals($this->issueCommentsData['startAt'], $issueComments->getStartAt());
         $this->assertEquals(count($this->issueCommentsData['comments']), count($issueComments->getComments()));
-
-
         $this->assertInstanceOf(JiraIssueComments::class, $issueComments);
     }
-
 }
