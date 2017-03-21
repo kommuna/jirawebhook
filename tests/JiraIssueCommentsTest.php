@@ -29,7 +29,6 @@ class JiraIssueCommentsTest extends PHPUnit_Framework_TestCase {
 
 
         $this->assertInstanceOf(JiraIssueComments::class, $issueComments);
-//        $this->assertInstanceOf(JiraIssueComments::class, $issue->getIssueComments());
     }
 
 }

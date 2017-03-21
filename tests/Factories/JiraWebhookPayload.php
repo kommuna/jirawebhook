@@ -18,7 +18,7 @@ class JiraWebhookPayloadFactory
         $faker = Factory::create();
         $faker->addProvider(new Internet($faker));
 
-        $id = $faker->randomNumber;
+        $id = $faker->randomNumber(4);
         $username = $faker->userName;
         $email = $faker->email;
 
