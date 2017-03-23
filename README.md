@@ -84,3 +84,6 @@ class NewConverterClass implements JiraWebhookDataConverter
 JiraWebhook::setConverter('converterName', new NewConverterClass());
 $message = JiraWebhook::convert('converterName', $jiraWebhookData)
 ```
+
+# Testing
+Run ```vendor/bin/phpunit``` or just ```phpunit``` if you have it installed globally.
