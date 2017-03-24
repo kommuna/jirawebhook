@@ -163,8 +163,19 @@ class JiraWebhookData
             'issue_created' => "A new issue was created",
             'issue_commented' => "A new comment was added",
             'issue_updated' => "The issue was updated",
+            'issue_assigned' => "The issue was assigned",
         ];
-        $this->issueEventDescription = $event_descriptions[$issueEvent];
+        $this->issueEventDescription = isset($event_descriptions[$issueEvent])?$event_descriptions[$issueEvent]:'';
+    }
+
+    /**
+     * Sets a more descriptive event description, based on the flow of the code
+     *
+     * @param string $description
+     */
+    public function overrideIssueEventDescription($description)
+    {
+        $this->issueEventDescription = $description;
     }
 
     /**

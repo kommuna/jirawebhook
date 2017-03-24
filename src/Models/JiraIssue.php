@@ -57,6 +57,13 @@ class JiraIssue
     protected $priority;
 
     /**
+     * JIRA issue colour, based on priority
+     *
+     * @var
+     */
+    protected $colour;
+
+    /**
      * JIRA issue assignee user
      *
      * @var
@@ -278,7 +285,7 @@ class JiraIssue
             'Low' => '#2a8735',
             'Lowest' => '#55a557'
         ];
-        $this->color = isset($priority_colors[$priority]) ? $priority_colors[$priority]: '#007AB8';
+        $this->colour = isset($priority_colors[$priority]) ? $priority_colors[$priority]: '#007AB8';
     }
 
     /**
