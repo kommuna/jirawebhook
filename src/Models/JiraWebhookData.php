@@ -50,8 +50,8 @@ class JiraWebhookData
     protected $issue;
 
     /**
-     * Parsing JIRA webhook $data 
-     * 
+     * Parsing JIRA webhook $data
+     *
      * @param null $data
      * 
      * @return JiraWebhookData
@@ -73,6 +73,7 @@ class JiraWebhookData
         $webhookData->setTimestamp($data['timestamp']);
         $webhookData->setWebhookEvent($data['webhookEvent']);
         $webhookData->setIssueEvent($data['issue_event_type_name']);
+        $webhookData->setIssueEventDescription($data['issue_event_type_name']);
         $webhookData->setIssue($data['issue']);
 
         return $webhookData;
@@ -154,6 +155,19 @@ class JiraWebhookData
     }
 
     /**
+     * @param $issueEvent
+     */
+    public function setIssueEventDescription($issueEvent)
+    {
+        $event_descriptions = [
+            'issue_created' => "A new issue was created",
+            'issue_commented' => "A new comment was added",
+            'issue_updated' => "The issue was updated",
+        ];
+        $this->issueEventDescription = $event_descriptions[$issueEvent];
+    }
+
+    /**
      * Set parsed JIRA issue data as JiraWebhook\Models\JiraIssue
      * 
      * @param $issueData
@@ -197,6 +211,14 @@ class JiraWebhookData
     public function getIssueEvent()
     {
         return $this->issueEvent;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIssueEventDescription()
+    {
+        return $this->issueEventDescription;
     }
 
     /**

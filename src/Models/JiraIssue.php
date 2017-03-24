@@ -86,11 +86,11 @@ class JiraIssue
 
     /**
      * Parsing JIRA issue $data
-     * 
+     *
      * @param null $data
      *
      * @return JiraIssue
-     * 
+     *
      * @throws JiraWebhookDataException
      */
     public static function parse($data = null)
@@ -107,10 +107,12 @@ class JiraIssue
 
         $issueData->setID($data['id']);
         $issueData->setSelf($data['self']);
+        $issueData->setUrl($data['key'], $data['self']);
         $issueData->setKey($data['key']);
         $issueData->setIssueType($issueFields['issuetype']['name']);
         $issueData->setProjectName($issueFields['project']['name']);
         $issueData->setPriority($issueFields['priority']['name']);
+        $issueData->setColour($issueFields['priority']['name']);
         $issueData->setAssignee(JiraUser::parse($issueFields['assignee']));
         $issueData->setStatus($issueFields['status']['name']);
         $issueData->setSummary($issueFields['summary']);
@@ -152,7 +154,7 @@ class JiraIssue
 
     /**
      * Check JIRA issue priority is Blocker
-     * 
+     *
      * @return bool
      */
     public function isPriorityBlocker()
@@ -162,7 +164,7 @@ class JiraIssue
 
     /**
      * Check JIRA issue type is Operations
-     * 
+     *
      * @return bool
      */
     public function isTypeOperations()
@@ -172,7 +174,7 @@ class JiraIssue
 
     /**
      * Check JIRA issue type is Urgent bug
-     * 
+     *
      * @return bool
      */
     public function isTypeUrgentBug()
@@ -182,7 +184,7 @@ class JiraIssue
 
     /**
      * Check JIRA issue status is Resolved
-     * 
+     *
      * @return bool|int
      */
     public function isStatusResolved()
@@ -228,6 +230,18 @@ class JiraIssue
     }
 
     /**
+     * Sets the web based url of an issue
+     *
+     * @param $key
+     * @param $self
+     */
+    public function setUrl($key, $self)
+    {
+        $url = parse_url($self);
+        $this->url = $url['scheme'] . '://' . $url['host'] . '/browse/' . $key;
+    }
+
+    /**
      * @param $issueType
      */
     public function setIssueType($issueType)
@@ -249,6 +263,22 @@ class JiraIssue
     public function setPriority($priority)
     {
         $this->priority = $priority;
+    }
+    /**
+     * @param $priority
+     */
+    public function setColour($priority)
+    {
+        // These are the same colors used for priority indicators in Jira
+        $priority_colors = [
+            'Blocker' => '#d40100',
+            'Highest' => '#ce0000',
+            'High' => '#ea4444',
+            'Medium' => '#ea7d24',
+            'Low' => '#2a8735',
+            'Lowest' => '#55a557'
+        ];
+        $this->color = isset($priority_colors[$priority]) ? $priority_colors[$priority]: '#007AB8';
     }
 
     /**
@@ -314,6 +344,14 @@ class JiraIssue
     /**
      * @return mixed
      */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getIssueType()
     {
         return $this->issueType;
@@ -333,6 +371,13 @@ class JiraIssue
     public function getPriority()
     {
         return $this->priority;
+    }
+    /**
+     * @return mixed
+     */
+    public function getColour()
+    {
+        return $this->colour;
     }
 
     /**
@@ -366,4 +411,5 @@ class JiraIssue
     {
         return $this->issueComments;
     }
+
 }
