@@ -26,14 +26,19 @@ class JiraIssueTest extends PHPUnit_Framework_TestCase {
 
     public function testParse()
     {
+        $this->issueData['self'] = 'https://testvicky.atlassian.net/rest/api/2/issue/10003';
+        $this->issueData['fields']['priority']['name'] = 'Highest';
         $issue = JiraIssue::parse($this->issueData);
+
 
         $this->assertEquals($this->issueData['id'], $issue->getID());
         $this->assertEquals($this->issueData['self'], $issue->getSelf());
+        $this->assertEquals('https://testvicky.atlassian.net/browse/' . $issue->getKey(), $issue->getUrl());
         $this->assertEquals($this->issueData['key'], $issue->getKey());
         $this->assertEquals($this->issueData['fields']['issuetype']['name'], $issue->getIssueType());
         $this->assertEquals($this->issueData['fields']['project']['name'], $issue->getProjectName());
         $this->assertEquals($this->issueData['fields']['priority']['name'], $issue->getPriority());
+        $this->assertEquals('#ce0000', $issue->getColour());
         $this->assertEquals($this->issueData['fields']['status']['name'], $issue->getStatus());
         $this->assertEquals($this->issueData['fields']['summary'], $issue->getSummary());
         $this->assertInstanceOf(JiraUser::class, $issue->getAssignee());
