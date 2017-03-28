@@ -176,7 +176,7 @@ class JiraIssue
      */
     public function isTypeOperations()
     {
-        return $this->getIssueType() === 'Operations';
+        return strpos($this->getIssueType(), 'Operations') !== false;
     }
 
     /**
@@ -186,7 +186,7 @@ class JiraIssue
      */
     public function isTypeUrgentBug()
     {
-        return $this->getIssueType() === 'Urgent bug';
+        return strpos($this->getIssueType(), 'Urgent bug') !== false;
     }
 
     /**
