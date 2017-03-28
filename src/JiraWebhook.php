@@ -3,7 +3,7 @@
  * Class with methods for parsing data from JIRA webhook, setting converters and listeners for events.
  *
  * @credits https://github.com/kommuna
- * @author  chewbacca@devadmin.com
+ * @author  Chewbacca chewbacca@devadmin.com
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -147,17 +147,18 @@ class JiraWebhook
     /**
      * Processing data, received from from JIRA webhook by events
      *
-     * @throws JiraWebhookException
+     * @param null $data
      */
     public function run($data = null)
     {
         $data = $this->extractData($data);
         $this->trigger($data->getWebhookEvent(), $data);
     }
-    
+
     /**
      * Parse raw data from JIRA
      *
+     * @param null $data
      * @return JiraWebhookData parsed data
      *
      * @throws JiraWebhookException

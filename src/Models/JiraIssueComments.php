@@ -3,7 +3,7 @@
  * Class that pars JIRA issue comments data and gives access to it.
  *
  * @credits https://github.com/kommuna
- * @author  chewbacca@devadmin.com
+ * @author  Chewbacca chewbacca@devadmin.com
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.

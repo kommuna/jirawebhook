@@ -1,6 +1,12 @@
 <?php
 /**
- * Author: Elena Kolevska
+ * Test for methods in class JiraWebhook\Models\JiraIssueComment
+ *
+ * @credits https://github.com/kommuna
+ * @author  Miss Lv lv@devadmin.com
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 namespace JiraWebhook\Tests;
 
@@ -17,12 +23,18 @@ class JiraIssueCommentTest extends PHPUnit_Framework_TestCase {
 
     private $issueCommentData;
 
+    /**
+     * @coversNothing
+     */
     public function setUp()
     {
         $payload = JiraWebhookPayloadFactory::create();
         $this->issueCommentData = $payload['issue']['fields']['comment']['comments'][0];
     }
 
+    /**
+     * @covers JiraIssueComment::parse
+     */
     public function testParse()
     {
         $issueComment = JiraIssueComment::parse($this->issueCommentData);
@@ -36,12 +48,19 @@ class JiraIssueCommentTest extends PHPUnit_Framework_TestCase {
         $this->assertInstanceOf(JiraUser::class, $issueComment->getUpdateAuthor());
     }
 
+    /**
+     * @covers JiraIssueComment::parse
+     */
     public function testExceptionIsThrownWhenCommentAuthorIsntSet()
     {
         $this->issueCommentData['author'] = null;
         $this->expectException(JiraWebhookDataException::class);
         JiraIssueComment::parse($this->issueCommentData);
     }
+
+    /**
+     * @covers JiraIssueComment::parse
+     */
     public function testExceptionIsThrownWhenCommentBodyIsntSet()
     {
         $this->issueCommentData['body'] = null;
@@ -49,6 +68,9 @@ class JiraIssueCommentTest extends PHPUnit_Framework_TestCase {
         JiraIssueComment::parse($this->issueCommentData);
     }
 
+    /**
+     * @covers JiraIssueComment::getMentionedUsersNicknames
+     */
     public function testMentionedUsersParsing()
     {
         $jiraIssueComment = new JiraIssueComment();

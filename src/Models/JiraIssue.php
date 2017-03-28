@@ -3,7 +3,7 @@
  * Class that pars JIRA issue data and gives access to it.
  *
  * @credits https://github.com/kommuna
- * @author  chewbacca@devadmin.com
+ * @author  Chewbacca chewbacca@devadmin.com
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -27,6 +27,13 @@ class JiraIssue
      * @var
      */
     protected $self;
+
+    /**
+     * JIRA issue url
+     *
+     * @var
+     */
+    protected $url;
 
     /**
      * JIRA issue key
@@ -192,7 +199,7 @@ class JiraIssue
     /**
      * Check JIRA issue status is Resolved
      *
-     * @return bool|int
+     * @return bool
      */
     public function isStatusResolved()
     {
@@ -333,7 +340,7 @@ class JiraIssue
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getSelf()
     {
@@ -341,7 +348,7 @@ class JiraIssue
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getKey()
     {
@@ -349,7 +356,7 @@ class JiraIssue
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getUrl()
     {
@@ -357,7 +364,7 @@ class JiraIssue
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getIssueType()
     {
@@ -365,7 +372,7 @@ class JiraIssue
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getProjectName()
     {
@@ -373,14 +380,14 @@ class JiraIssue
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getPriority()
     {
         return $this->priority;
     }
     /**
-     * @return mixed
+     * @return string
      */
     public function getColour()
     {
@@ -388,7 +395,7 @@ class JiraIssue
     }
 
     /**
-     * @return mixed
+     * @return JiraUser
      */
     public function getAssignee()
     {
@@ -396,7 +403,7 @@ class JiraIssue
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getStatus()
     {
@@ -404,7 +411,7 @@ class JiraIssue
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getSummary()
     {
@@ -412,7 +419,7 @@ class JiraIssue
     }
 
     /**
-     * @return mixed
+     * @return JiraIssueComments
      */
     public function getIssueComments()
     {

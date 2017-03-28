@@ -3,7 +3,7 @@
  * Class that pars JIRA issue single comment data and gives access to it.
  *
  * @credits https://github.com/kommuna
- * @author  chewbacca@devadmin.com
+ * @author  Chewbacca chewbacca@devadmin.com
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -96,6 +96,8 @@ class JiraIssueComment
     }
 
     /**
+     * Validates if the necessary parameters have been provided
+     *
      * @param $data
      * @throws JiraWebhookDataException
      */
@@ -179,7 +181,7 @@ class JiraIssueComment
     /**************************************************/
 
     /**
-     * @return mixed
+     * @return JiraIssueComment
      */
     public function getSelf()
     {
@@ -195,7 +197,7 @@ class JiraIssueComment
     }
 
     /**
-     * @return mixed
+     * @return JiraUser
      */
     public function getAuthor()
     {
@@ -203,7 +205,7 @@ class JiraIssueComment
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getBody()
     {
@@ -211,7 +213,7 @@ class JiraIssueComment
     }
 
     /**
-     * @return mixed
+     * @return JiraUser
      */
     public function getUpdateAuthor()
     {

@@ -3,7 +3,7 @@
  * Class that pars JIRA webhook data and gives access to it.
  *
  * @credits https://github.com/kommuna
- * @author  chewbacca@devadmin.com
+ * @author  Chewbacca chewbacca@devadmin.com
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -41,6 +41,13 @@ class JiraWebhookData
      * @var
      */
     protected $issueEvent;
+
+    /**
+     * Webhook issue event human readable description
+     *
+     * @var
+     */
+    protected $issueEventDescription;
 
     /**
      * JiraWebhook\Models\JiraIssue
@@ -99,7 +106,7 @@ class JiraWebhookData
     }
 
     /**
-     * Check JIRA issue event is issue commented
+     * Check if JIRA issue event is issue commented
      * 
      * @return bool
      */
@@ -109,7 +116,7 @@ class JiraWebhookData
     }
 
     /**
-     * Check JIRA issue event is issue assigned
+     * Check if JIRA issue event is issue assigned
      * 
      * @return bool
      */

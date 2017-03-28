@@ -1,6 +1,12 @@
 <?php
 /**
- * Author: Elena Kolevska
+ * Test for methods in class JiraWebhook\Models\JiraUser
+ *
+ * @credits https://github.com/kommuna
+ * @author  Miss Lv lv@devadmin.com
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 namespace JiraWebhook\Tests;
 
@@ -16,12 +22,18 @@ class JiraUserTest extends PHPUnit_Framework_TestCase {
 
     protected $issueUser;
 
+    /**
+     * @coversNothing
+     */
     public function setUp()
     {
         $payload = JiraWebhookPayloadFactory::create();
         $this->issueUser = $payload['user'];
     }
 
+    /**
+     * @covers JiraUserTest::parse
+     */
     public function testParse()
     {
         $issueComments = JiraUser::parse($this->issueUser);
@@ -36,6 +48,9 @@ class JiraUserTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals($this->issueUser['timeZone'], $issueComments->getTimeZone());
     }
 
+    /**
+     * @covers JiraUserTest::parse
+     */
     public function testExceptionIsThrownWhenUserNameIsntSet()
     {
         $this->issueUser['name'] = null;

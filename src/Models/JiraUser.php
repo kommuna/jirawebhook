@@ -3,7 +3,7 @@
  * Class that pars JIRA user data and gives access to it.
  *
  * @credits https://github.com/kommuna
- * @author  chewbacca@devadmin.com
+ * @author  Chewbacca chewbacca@devadmin.com
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -179,7 +179,7 @@ class JiraUser
     /**************************************************/
 
     /**
-     * @return mixed
+     * @return JiraUser
      */
     public function getSelf()
     {
@@ -195,7 +195,7 @@ class JiraUser
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getKey()
     {
@@ -203,7 +203,7 @@ class JiraUser
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getEmail()
     {
@@ -211,7 +211,7 @@ class JiraUser
     }
 
     /**
-     * @return mixed
+     * @return array
      */
     public  function getAvatarURLs()
     {
@@ -219,7 +219,7 @@ class JiraUser
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getDisplayName()
     {
@@ -227,7 +227,7 @@ class JiraUser
     }
 
     /**
-     * @return mixed
+     * @return boolean
      */
     public function getActive()
     {
@@ -235,7 +235,7 @@ class JiraUser
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getTimeZone()
     {

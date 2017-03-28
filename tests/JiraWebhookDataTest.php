@@ -1,6 +1,12 @@
 <?php
 /**
- * Author: Elena Kolevska
+ * Test for methods in class JiraWebhook\Models\JiraWebhookData
+ *
+ * @credits https://github.com/kommuna
+ * @author  Miss Lv lv@devadmin.com
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 namespace JiraWebhook\Tests;
 
@@ -17,23 +23,37 @@ class JiraWebhookDataTest extends PHPUnit_Framework_TestCase {
 
     protected $payload;
 
+    /**
+     * @coversNothing
+     */
     public function setUp()
     {
         $this->payload = JiraWebhookPayloadFactory::create();
     }
 
+    /**
+     * @covers JiraWebhookData::parse
+     */
     public function testExceptionIsThrownWhenWebhookEventIsntSpecified()
     {
         $this->payload['webhookEvent'] = null;
         $this->expectException(JiraWebhookDataException::class);
         JiraWebhookData::parse($this->payload);
     }
+
+    /**
+     * @covers JiraWebhookData::parse
+     */
     public function testExceptionIsThrownWhenIssueEventTypeIsntSpecified()
     {
         $this->payload['issue_event_type_name'] = null;
         $this->expectException(JiraWebhookDataException::class);
         JiraWebhookData::parse($this->payload);
     }
+
+    /**
+     * @covers JiraWebhookData::parse
+     */
     public function testExceptionIsThrownWhenIssueIsntSpecified()
     {
         $this->payload['issue'] = null;
@@ -41,6 +61,9 @@ class JiraWebhookDataTest extends PHPUnit_Framework_TestCase {
         JiraWebhookData::parse($this->payload);
     }
 
+    /**
+     * @covers JiraWebhookData::parse
+     */
     public function testParse()
     {
         $this->payload['issue_event_type_name'] = 'issue_commented';
@@ -53,6 +76,10 @@ class JiraWebhookDataTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals('A new comment was added', $webhookData->getIssueEventDescription());
         $this->assertInstanceOf(JiraIssue::class, $webhookData->getIssue());
     }
+
+    /**
+     * @covers JiraWebhookData::parse
+     */
     public function testParseForUnknownEvent()
     {
         $this->payload['issue_event_type_name'] = 'unknown';
@@ -61,6 +88,10 @@ class JiraWebhookDataTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals('', $webhookData->getIssueEventDescription());
         $this->assertInstanceOf(JiraIssue::class, $webhookData->getIssue());
     }
+
+    /**
+     * @covers JiraWebhookData::overrideIssueEventDescription
+     */
     public function testParseOverrideEventDescription()
     {
         $webhookData = JiraWebhookData::parse($this->payload);

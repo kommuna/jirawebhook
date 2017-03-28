@@ -1,6 +1,12 @@
 <?php
 /**
- * Author: Elena Kolevska
+ * Test for methods in class JiraWebhook\Models\JiraIssueComments
+ *
+ * @credits https://github.com/kommuna
+ * @author  Miss Lv lv@devadmin.com
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 namespace JiraWebhook\Tests;
 
@@ -10,17 +16,24 @@ use JiraWebhook\Tests\Factories\JiraWebhookPayloadFactory;
 
 /**
  * @property  array issueCommentsData
+ *
  */
 class JiraIssueCommentsTest extends PHPUnit_Framework_TestCase {
 
     protected $issueCommentsData;
 
+    /**
+     * @coversNothing
+     */
     public function setUp()
     {
         $payload = JiraWebhookPayloadFactory::create();
         $this->issueCommentsData = $payload['issue']['fields']['comment'];
     }
 
+    /**
+     * @covers JiraIssueComments::parse
+     */
     public function testParse()
     {
         $issueComments = JiraIssueComments::parse($this->issueCommentsData);
