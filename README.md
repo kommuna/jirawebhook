@@ -66,9 +66,6 @@ try {
 }
 ```
 
-The `$eventName` must be some data from the [JiraWebhook\Models\JiraWebhookData]
-(https://github.com/kommuna/jirawebhook/blob/master/src/Models/JiraWebhookData.php)
-
 ## JIRA data converters  
 
 To create a new converter create a new class that implements the JiraWebhookDataConverter interface. Then to set and use
