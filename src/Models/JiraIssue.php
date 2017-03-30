@@ -193,7 +193,7 @@ class JiraIssue
      */
     public function isTypeUrgentBug()
     {
-        return strpos($this->getIssueType(), 'Urgent bug') !== false;
+        return strpos($this->getIssueType(), 'Urgent Bug') !== false;
     }
 
     /**
