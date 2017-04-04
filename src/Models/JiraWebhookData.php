@@ -50,6 +50,13 @@ class JiraWebhookData
     protected $issueEventDescription;
 
     /**
+     * JiraWebhook\Models\JiraUser
+     *
+     * @var
+     */
+    protected $user;
+
+    /**
      * JiraWebhook\Models\JiraIssue
      * 
      * @var
@@ -81,6 +88,7 @@ class JiraWebhookData
         $webhookData->setWebhookEvent($data['webhookEvent']);
         $webhookData->setIssueEvent($data['issue_event_type_name']);
         $webhookData->setIssueEventDescription($data['issue_event_type_name']);
+        $webhookData->setUser(JiraUser::parse($data['user']));
         $webhookData->setIssue($data['issue']);
 
         return $webhookData;
@@ -186,6 +194,14 @@ class JiraWebhookData
     }
 
     /**
+     * @param $user
+     */
+    public function setUser($user)
+    {
+        $this->$user = $user;
+    }
+
+    /**
      * Set parsed JIRA issue data as JiraWebhook\Models\JiraIssue
      * 
      * @param $issueData
@@ -237,6 +253,14 @@ class JiraWebhookData
     public function getIssueEventDescription()
     {
         return $this->issueEventDescription;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 
     /**
