@@ -198,7 +198,7 @@ class JiraWebhookData
      */
     public function setUser($user)
     {
-        $this->user = $user;
+        $this->$user = $user;
     }
 
     /**
