@@ -112,10 +112,10 @@ class JiraWebhook
      *
      * @throws JiraWebhookException
      */
-    public static function convert($name, JiraWebhookData $data, $slackClientMessage)
+    public static function convert($name, JiraWebhookData $data)
     {
         if (!empty(self::$converter[$name])) {
-            return self::$converter[$name]->convert($data, $slackClientMessage);
+            return self::$converter[$name]->convert($data);
         }
 
         throw new JiraWebhookException("Converter {$name} is not registered!");
