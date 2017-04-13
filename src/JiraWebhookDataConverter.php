@@ -11,17 +11,15 @@
 namespace JiraWebhook;
 
 use JiraWebhook\Models\JiraWebhookData;
-use Maknz\Slack\Message;
 
 interface JiraWebhookDataConverter
 {
     /**
-     * Convert $data into a Slack Client Instance
+     * Convert $data into a formatted string message
      *
      * @param JiraWebhookData $data parsed data from JIRA webhook
-     * @param Message $message Slack Client Message instance
      *
-     * @return Message
+     * @return string
      */
-    public function convert(JiraWebhookData $data, Message $message);
+    public function convert(JiraWebhookData $data);
 }
