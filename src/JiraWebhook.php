@@ -114,11 +114,11 @@ class JiraWebhook
      */
     public static function convert($name, JiraWebhookData $data)
     {
-        if (!empty(self::$converter[$name])) {
-            return self::$converter[$name]->convert($data);
-        }
+        $className = "{$name}Converter";
 
-        throw new JiraWebhookException("Converter {$name} is not registered!");
+        $converter = !empty(self::$converter[$name]) ? self::$converter[$name] : new $className();
+
+        return $converter->convert($data);
     }
 
     /**
