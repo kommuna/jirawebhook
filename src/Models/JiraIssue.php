@@ -57,6 +57,13 @@ class JiraIssue
     protected $projectName;
 
     /**
+     * JIRA issue project key
+     *
+     * @var
+     */
+    protected $projectKey;
+
+    /**
      * JIRA issue priority
      *
      * @var
@@ -125,6 +132,7 @@ class JiraIssue
         $issueData->setKey($data['key']);
         $issueData->setIssueType($issueFields['issuetype']['name']);
         $issueData->setProjectName($issueFields['project']['name']);
+        $issueData->setProjectKey($issueFields['project']['key']);
         $issueData->setPriority($issueFields['priority']['name']);
         $issueData->setColour($issueFields['priority']['name']);
         $issueData->setAssignee(JiraUser::parse($issueFields['assignee']));
@@ -272,6 +280,14 @@ class JiraIssue
     }
 
     /**
+     * @param $projectKey
+     */
+    public function setProjectKey($projectKey)
+    {
+        $this->projectKey = $projectKey;
+    }
+
+    /**
      * @param $priority
      */
     public function setPriority($priority)
@@ -377,6 +393,14 @@ class JiraIssue
     public function getProjectName()
     {
         return $this->projectName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProjectKey()
+    {
+        return $this->projectKey;
     }
 
     /**
