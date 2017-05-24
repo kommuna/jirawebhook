@@ -142,10 +142,7 @@ class JiraIssueComment
      */
     protected function bodyParsing($body)
     {
-        $body = preg_replace("/\{code(.*?)\}(.*?)\}/", "", $body);
-        $body = preg_replace("/\{quote\}(.*?)\}/", "", $body);
-
-        return $body;
+        return preg_replace("/\{code(.*?)\}(.*?)\}|\{quote\}(.*?)\}/", "", $body);
     }
 
     /**
@@ -177,7 +174,7 @@ class JiraIssueComment
      */
     public function setBody($body)
     {
-        $this->body = $body;
+        $this->body = $this->bodyParsing($body);
     }
 
     /**
