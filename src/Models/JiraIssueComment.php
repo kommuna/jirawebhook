@@ -144,7 +144,7 @@ class JiraIssueComment
     {
         $body = preg_replace("/\{code(.*?)\}(.*?)\}/", "", $body);
         $body = preg_replace("/\{quote\}(.*?)\}/", "", $body);
-        
+
         return $body;
     }
 
@@ -260,13 +260,5 @@ class JiraIssueComment
     public function getUpdated()
     {
         return $this->updated;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCommentReference()
-    {
-        return $this->commentReference;
     }
 }
