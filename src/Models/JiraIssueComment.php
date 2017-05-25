@@ -112,7 +112,7 @@ class JiraIssueComment
     }
 
     /**
-     * Get array of user nicknames that referenced comment
+     * Get array of user nicknames that referenced in comment
      *
      * @return mixed
      */
@@ -120,6 +120,16 @@ class JiraIssueComment
     {
         preg_match_all("/\[~(.*?)\]/", $this->body, $matches);
         return $matches[1];
+    }
+
+    /**
+     * Remove from comment body code and quote blocks
+     *
+     * @return mixed
+     */
+    public function bodyParsing()
+    {
+        return preg_replace("/\{code(.*?)\}(.*?)\{code\}|\{quote\}(.*?)\{quote\}/", "", $this->body);
     }
 
     /**
@@ -234,13 +244,5 @@ class JiraIssueComment
     public function getUpdated()
     {
         return $this->updated;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCommentReference()
-    {
-        return $this->commentReference;
     }
 }
