@@ -123,26 +123,13 @@ class JiraIssueComment
     }
 
     /**
-     * Get array of channel labels that referenced in comment
-     *
-     * @return mixed
-     */
-    public function getReferencedLabels()
-    {
-        preg_match_all("/#([^\s]*)/", $this->body, $matches);
-        return $matches[1];
-    }
-
-    /**
      * Remove from comment body code and quote blocks
      *
-     * @param $body
-     *
      * @return mixed
      */
-    protected function bodyParsing($body)
+    public function bodyParsing()
     {
-        return preg_replace("/\{code(.*?)\}(.*?)\}|\{quote\}(.*?)\}/", "", $body);
+        return preg_replace("/\{code(.*?)\}(.*?)\{code\}|\{quote\}(.*?)\{quote\}/", "", $this->body);
     }
 
     /**
@@ -174,7 +161,7 @@ class JiraIssueComment
      */
     public function setBody($body)
     {
-        $this->body = $this->bodyParsing($body);
+        $this->body = $body;
     }
 
     /**
