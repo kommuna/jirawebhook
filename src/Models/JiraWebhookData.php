@@ -133,6 +133,19 @@ class JiraWebhookData
         return $this->issueEvent === 'issue_assigned';
     }
 
+    /**
+     * Get array of channel labels that referenced in comment
+     *
+     * @param $string
+     *
+     * @return mixed
+     */
+    public static function getReferencedLabels($string)
+    {
+        preg_match_all("/#([A-Za-z0-9]*)/", $string, $matches);
+        return $matches[1];
+    }
+
     /**************************************************/
 
     /**
