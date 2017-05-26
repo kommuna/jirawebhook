@@ -71,6 +71,13 @@ class JiraIssue
     protected $priority;
 
     /**
+     * Array of JIRA issue labels
+     *
+     * @var
+     */
+    protected $labels;
+
+    /**
      * JIRA issue colour, based on priority
      *
      * @var
@@ -135,6 +142,7 @@ class JiraIssue
         $issueData->setProjectKey($issueFields['project']['key']);
         $issueData->setPriority($issueFields['priority']['name']);
         $issueData->setColour($issueFields['priority']['name']);
+        $issueData->setLabels($issueFields['labels']);
         $issueData->setAssignee(JiraUser::parse($issueFields['assignee']));
         $issueData->setStatus($issueFields['status']['name']);
         $issueData->setSummary($issueFields['summary']);
@@ -294,6 +302,15 @@ class JiraIssue
     {
         $this->priority = $priority;
     }
+
+    /**
+     * @param $labels
+     */
+    public function setLabels($labels)
+    {
+        $this->labels = $labels;
+    }
+
     /**
      * @param $priority
      */
@@ -410,6 +427,15 @@ class JiraIssue
     {
         return $this->priority;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getLabels()
+    {
+        return $this->labels;
+    }
+
     /**
      * @return string
      */
