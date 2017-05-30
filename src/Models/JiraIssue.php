@@ -224,13 +224,13 @@ class JiraIssue
     }
 
     /**
-     * Check if JIRA issue status is Close
+     * Check if JIRA issue status is Closed
      *
      * @return bool|int
      */
-    public function isStatusClose()
+    public function isStatusClosed()
     {
-        return $this->getStatus() === 'Close';
+        return $this->getStatus() === 'Closed';
     }
 
     /**************************************************/
