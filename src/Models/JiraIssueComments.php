@@ -73,7 +73,7 @@ class JiraIssueComments
     /**
      * Set parsed single comment
      *
-     * @param          $key     array key
+     * @param mixed    $key     array key
      * @param callable $comment comment data
      *
      * @throws JiraWebhookDataException
