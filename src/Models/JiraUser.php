@@ -43,18 +43,18 @@ class JiraUser
     protected $email;
 
     /**
-     * JIRA user displayed name
-     *
-     * @var
-     */
-    protected $displayName;
-
-    /**
      * Array of JIRA user avatars
      *
      * @var
      */
     protected $avatarURLs;
+
+    /**
+     * JIRA user displayed name
+     *
+     * @var
+     */
+    protected $displayName;
 
     /**
      * JIRA user active

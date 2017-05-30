@@ -29,13 +29,6 @@ class JiraIssue
     protected $self;
 
     /**
-     * JIRA issue url
-     *
-     * @var
-     */
-    protected $url;
-
-    /**
      * JIRA issue key
      *
      * @var
@@ -43,11 +36,18 @@ class JiraIssue
     protected $key;
 
     /**
-     * JIRA issue type
+     * JIRA issue url
      *
      * @var
      */
-    protected $issueType;
+    protected $url;
+
+    /**
+     * JIRA issue type name
+     *
+     * @var
+     */
+    protected $issueTypeName;
 
     /**
      * JIRA issue project name
@@ -135,9 +135,9 @@ class JiraIssue
 
         $issueData->setID($data['id']);
         $issueData->setSelf($data['self']);
-        $issueData->setUrl($data['key'], $data['self']);
         $issueData->setKey($data['key']);
-        $issueData->setIssueType($issueFields['issuetype']['name']);
+        $issueData->setUrl($data['key'], $data['self']);
+        $issueData->setIssueTypeName($issueFields['issuetype']['name']);
         $issueData->setProjectName($issueFields['project']['name']);
         $issueData->setProjectKey($issueFields['project']['key']);
         $issueData->setPriority($issueFields['priority']['name']);

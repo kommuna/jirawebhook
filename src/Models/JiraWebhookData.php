@@ -47,7 +47,7 @@ class JiraWebhookData
      *
      * @var
      */
-    protected $issueEventDescription;
+    //protected $issueEventDescription;
 
     /**
      * JiraWebhook\Models\JiraUser
@@ -62,6 +62,11 @@ class JiraWebhookData
      * @var
      */
     protected $issue;
+
+    /**
+     * @var
+     */
+    protected $changelog;
 
     /**
      * Parsing JIRA webhook $data
@@ -87,9 +92,10 @@ class JiraWebhookData
         $webhookData->setTimestamp($data['timestamp']);
         $webhookData->setWebhookEvent($data['webhookEvent']);
         $webhookData->setIssueEvent($data['issue_event_type_name']);
-        $webhookData->setIssueEventDescription($data['issue_event_type_name']);
+        //$webhookData->setIssueEventDescription($data['issue_event_type_name']);
         $webhookData->setUser(JiraUser::parse($data['user']));
-        $webhookData->setIssue($data['issue']);
+        $webhookData->setIssue(JiraIssue::parse($data['issue']));
+        $webhookData->setChangelog($data['changelog']);
 
         return $webhookData;
     }
@@ -185,7 +191,7 @@ class JiraWebhookData
     /**
      * @param $issueEvent
      */
-    public function setIssueEventDescription($issueEvent)
+    /*public function setIssueEventDescription($issueEvent)
     {
         $event_descriptions = [
             'issue_created'   => "A new issue was created",
@@ -194,17 +200,17 @@ class JiraWebhookData
             'issue_assigned'  => "The issue was assigned",
         ];
         $this->issueEventDescription = isset($event_descriptions[$issueEvent]) ? $event_descriptions[$issueEvent] : '';
-    }
+    }*/
 
     /**
      * Sets a more descriptive event description, based on the flow of the code
      *
      * @param string $description
      */
-    public function overrideIssueEventDescription($description)
+    /*public function overrideIssueEventDescription($description)
     {
         $this->issueEventDescription = $description;
-    }
+    }*/
 
     /**
      * @param $user
@@ -215,15 +221,19 @@ class JiraWebhookData
     }
 
     /**
-     * Set parsed JIRA issue data as JiraWebhook\Models\JiraIssue
-     * 
      * @param $issueData
-     * 
-     * @throws JiraWebhookDataException
      */
     public function setIssue($issueData)
     {
-        $this->issue = JiraIssue::parse($issueData);
+        $this->issue = $issueData;
+    }
+
+    /**
+     * @param $changelog
+     */
+    public function setChangelog($changelog)
+    {
+        $this->changelog = $changelog;
     }
 
     /**************************************************/
@@ -263,10 +273,10 @@ class JiraWebhookData
     /**
      * @return mixed
      */
-    public function getIssueEventDescription()
+    /*public function getIssueEventDescription()
     {
         return $this->issueEventDescription;
-    }
+    }*/
 
     /**
      * @return mixed
@@ -282,5 +292,13 @@ class JiraWebhookData
     public function getIssue()
     {
         return $this->issue;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getChangelog()
+    {
+        return $this->changelog;
     }
 }
