@@ -29,13 +29,6 @@ class JiraIssue
     protected $self;
 
     /**
-     * JIRA issue url
-     *
-     * @var
-     */
-    protected $url;
-
-    /**
      * JIRA issue key
      *
      * @var
@@ -43,18 +36,18 @@ class JiraIssue
     protected $key;
 
     /**
-     * JIRA issue type
+     * JIRA issue url
      *
      * @var
      */
-    protected $issueType;
+    protected $url;
 
     /**
-     * JIRA issue project name
+     * JIRA issue type name
      *
      * @var
      */
-    protected $projectName;
+    protected $issueTypeName;
 
     /**
      * JIRA issue project key
@@ -64,11 +57,18 @@ class JiraIssue
     protected $projectKey;
 
     /**
+     * JIRA issue project name
+     *
+     * @var
+     */
+    protected $projectName;
+
+    /**
      * JIRA issue priority
      *
      * @var
      */
-    protected $priority;
+    protected $priorityName;
 
     /**
      * Array of JIRA issue labels
@@ -82,10 +82,10 @@ class JiraIssue
      *
      * @var
      */
-    protected $colour;
+    //protected $colour;
 
     /**
-     * JIRA issue assignee user
+     * JiraWebhook\Models\JiraUser
      *
      * @var
      */
@@ -96,7 +96,7 @@ class JiraIssue
      *
      * @var
      */
-    protected $status;
+    protected $statusName;
 
     /**
      * JIRA issue summary
@@ -135,16 +135,16 @@ class JiraIssue
 
         $issueData->setID($data['id']);
         $issueData->setSelf($data['self']);
-        $issueData->setUrl($data['key'], $data['self']);
         $issueData->setKey($data['key']);
-        $issueData->setIssueType($issueFields['issuetype']['name']);
-        $issueData->setProjectName($issueFields['project']['name']);
+        $issueData->setUrl($data['key'], $data['self']);
+        $issueData->setIssueTypeName($issueFields['issuetype']['name']);
         $issueData->setProjectKey($issueFields['project']['key']);
-        $issueData->setPriority($issueFields['priority']['name']);
-        $issueData->setColour($issueFields['priority']['name']);
+        $issueData->setProjectName($issueFields['project']['name']);
+        $issueData->setPriorityName($issueFields['priority']['name']);
+        //$issueData->setColour($issueFields['priority']['name']);
         $issueData->setLabels($issueFields['labels']);
         $issueData->setAssignee(JiraUser::parse($issueFields['assignee']));
-        $issueData->setStatus($issueFields['status']['name']);
+        $issueData->setStatusName($issueFields['status']['name']);
         $issueData->setSummary($issueFields['summary']);
         $issueData->setIssueComments(JiraIssueComments::parse($data['fields']['comment']));
 
@@ -189,7 +189,7 @@ class JiraIssue
      */
     public function isPriorityBlocker()
     {
-        return $this->getPriority() === 'Blocker';
+        return $this->getPriorityName() === 'Blocker';
     }
 
     /**
@@ -199,7 +199,7 @@ class JiraIssue
      */
     public function isTypeOperations()
     {
-        return strpos($this->getIssueType(), 'Operations') !== false;
+        return strpos($this->getIssueTypeName(), 'Operations') !== false;
     }
 
     /**
@@ -209,7 +209,7 @@ class JiraIssue
      */
     public function isTypeUrgentBug()
     {
-        return strpos($this->getIssueType(), 'Urgent Bug') !== false;
+        return strpos($this->getIssueTypeName(), 'Urgent Bug') !== false;
     }
 
     /**
@@ -220,17 +220,17 @@ class JiraIssue
     public function isStatusResolved()
     {
         // This is cause in devadmin JIRA status 'Resolved' has japanese symbols
-        return strpos($this->getStatus(), 'Resolved') !== false;
+        return strpos($this->getStatusName(), 'Resolved') !== false;
     }
 
     /**
-     * Check if JIRA issue status is Close
+     * Check if JIRA issue status is Closed
      *
      * @return bool|int
      */
-    public function isStatusClose()
+    public function isStatusClosed()
     {
-        return $this->getStatus() === 'Close';
+        return $this->getStatusName() === 'Closed';
     }
 
     /**************************************************/
@@ -272,19 +272,11 @@ class JiraIssue
     }
 
     /**
-     * @param $issueType
+     * @param $issueTypeName
      */
-    public function setIssueType($issueType)
+    public function setIssueTypeName($issueTypeName)
     {
-        $this->issueType = $issueType;
-    }
-
-    /**
-     * @param $projectName
-     */
-    public function setProjectName($projectName)
-    {
-        $this->projectName = $projectName;
+        $this->issueTypeName = $issueTypeName;
     }
 
     /**
@@ -296,11 +288,19 @@ class JiraIssue
     }
 
     /**
-     * @param $priority
+     * @param $projectName
      */
-    public function setPriority($priority)
+    public function setProjectName($projectName)
     {
-        $this->priority = $priority;
+        $this->projectName = $projectName;
+    }
+
+    /**
+     * @param $priorityName
+     */
+    public function setPriorityName($priorityName)
+    {
+        $this->priorityName = $priorityName;
     }
 
     /**
@@ -314,7 +314,7 @@ class JiraIssue
     /**
      * @param $priority
      */
-    public function setColour($priority)
+    /*public function setColour($priority)
     {
         // These are the same colors used for priority indicators in Jira
         $priority_colors = [
@@ -326,7 +326,7 @@ class JiraIssue
             'Lowest' => '#55a557'
         ];
         $this->colour = isset($priority_colors[$priority]) ? $priority_colors[$priority]: '#007AB8';
-    }
+    }*/
 
     /**
      * @param $assignee
@@ -337,11 +337,11 @@ class JiraIssue
     }
 
     /**
-     * @param $status
+     * @param $statusName
      */
-    public function setStatus($status)
+    public function setStatusName($statusName)
     {
-        $this->status = $status;
+        $this->statusName = $statusName;
     }
 
     /**
@@ -399,17 +399,9 @@ class JiraIssue
     /**
      * @return string
      */
-    public function getIssueType()
+    public function getIssueTypeName()
     {
-        return $this->issueType;
-    }
-
-    /**
-     * @return string
-     */
-    public function getProjectName()
-    {
-        return $this->projectName;
+        return $this->issueTypeName;
     }
 
     /**
@@ -423,9 +415,17 @@ class JiraIssue
     /**
      * @return string
      */
-    public function getPriority()
+    public function getProjectName()
     {
-        return $this->priority;
+        return $this->projectName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPriorityName()
+    {
+        return $this->priorityName;
     }
 
     /**
@@ -439,10 +439,10 @@ class JiraIssue
     /**
      * @return string
      */
-    public function getColour()
+    /*public function getColour()
     {
         return $this->colour;
-    }
+    }*/
 
     /**
      * @return JiraUser
@@ -455,9 +455,9 @@ class JiraIssue
     /**
      * @return string
      */
-    public function getStatus()
+    public function getStatusName()
     {
-        return $this->status;
+        return $this->statusName;
     }
 
     /**
