@@ -52,6 +52,26 @@ class JiraChangelog
     }
 
     /**
+     * Check if JIRA issue was assigned
+     *
+     * @return bool
+     */
+    public function isIssueAssigned()
+    {
+        $isAssigned = false;
+
+        foreach ($this->items as $item) {
+            if ($isAssigned = $item->getField() === 'assignee') {
+                break;
+            }
+        }
+
+        return $isAssigned;
+    }
+
+    /**************************************************/
+
+    /**
      * @param $id
      */
     public function setId($id)

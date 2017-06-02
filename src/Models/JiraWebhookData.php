@@ -95,7 +95,7 @@ class JiraWebhookData
         //$webhookData->setIssueEventDescription($data['issue_event_type_name']);
         $webhookData->setUser(JiraUser::parse($data['user']));
         $webhookData->setIssue(JiraIssue::parse($data['issue']));
-        $webhookData->setChangelog($data['changelog']);
+        $webhookData->setChangelog(JiraChangelog::parse($data['changelog']));
 
         return $webhookData;
     }
@@ -134,10 +134,10 @@ class JiraWebhookData
      * 
      * @return bool
      */
-    public function isIssueAssigned()
+    /*public function isIssueAssigned()
     {
         return $this->issueEvent === 'issue_assigned';
-    }
+    }*/
 
     /**
      * Get array of channel labels that referenced in comment
