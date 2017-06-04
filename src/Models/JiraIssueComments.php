@@ -60,7 +60,7 @@ class JiraIssueComments
         }
 
         foreach ($data['comments'] as $key => $comment) {
-            $issueCommentsData->setComment($key, $comment);
+            $issueCommentsData->setComment($key, JiraIssueComment::parse($comment));
         }
 
         $issueCommentsData->setMaxResults($data['maxResults']);
@@ -73,14 +73,14 @@ class JiraIssueComments
     /**
      * Set parsed single comment
      *
-     * @param          $key     array key
-     * @param callable $comment comment data
+     * @param mixed            $key     array key
+     * @param JiraIssueComment $comment comment data
      *
      * @throws JiraWebhookDataException
      */
     public function setComment($key, $comment)
     {
-        $this->comments[$key] = JiraIssueComment::parse($comment);
+        $this->comments[$key] = $comment;
     }
 
     /**
