@@ -213,6 +213,16 @@ class JiraIssue
     }
 
     /**
+     * Check JIRA issue type is Server
+     *
+     * @return bool
+     */
+    public function isTypeServer()
+    {
+        return strpos($this->getIssueTypeName(), 'Server') !== false;
+    }
+
+    /**
      * Check JIRA issue status is Resolved
      *
      * @return bool
