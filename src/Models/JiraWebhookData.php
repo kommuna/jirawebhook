@@ -126,7 +126,6 @@ class JiraWebhookData
      */
     public function isIssueCommented()
     {
-        //return $this->issueEvent === 'issue_commented';
         return array_key_exists('comment', $this->rawData);
     }
 
