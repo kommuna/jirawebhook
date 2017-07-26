@@ -217,9 +217,9 @@ class JiraIssueComment
     /**
      * @return string
      */
-    public function getBody()
+    public function getBody($start = 0, $length = null)
     {
-        return $this->body;
+        return mb_substr($this->body, $start, $length);
     }
 
     /**
