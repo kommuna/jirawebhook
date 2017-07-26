@@ -12,7 +12,7 @@ namespace JiraWebhook;
 
 use JiraWebhook\Models\JiraWebhookData;
 
-abstract class JiraWebhookDataConverter
+interface JiraWebhookDataConverter
 {
     /**
      * Convert $data into a formatted string message
@@ -21,18 +21,5 @@ abstract class JiraWebhookDataConverter
      *
      * @return string
      */
-    abstract public function convert(JiraWebhookData $data);
-
-    /**
-     * Truncate string
-     *
-     * @param string $commentBody JIRA issue comment body
-     * @param int    $length
-     *
-     * @return bool|string
-     */
-    public function truncateCommentBody($commentBody, $length = 178)
-    {
-        return substr($commentBody, 0, $length);
-    }
+    public function convert(JiraWebhookData $data);
 }
