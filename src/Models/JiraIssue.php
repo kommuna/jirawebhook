@@ -399,6 +399,16 @@ class JiraIssue
     }
 
     /**
+     * Returns the key with a space instead of a hyphen
+     *
+     * @return string
+     */
+    public function getModifiedKey()
+    {
+        return str_replace("-", " ", $this->key);
+    }
+
+    /**
      * @return string
      */
     public function getUrl()
