@@ -399,13 +399,15 @@ class JiraIssue
     }
 
     /**
-     * Returns the key with a space instead of a hyphen
+     * Returns the key with a $modifier instead of a hyphen
      *
-     * @return string
+     * @param $modifier
+     *
+     * @return mixed
      */
-    public function getModifiedKey()
+    public function getModifiedKey($modifier)
     {
-        return str_replace("-", " ", $this->key);
+        return str_replace("-", $modifier, $this->key);
     }
 
     /**
