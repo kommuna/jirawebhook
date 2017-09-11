@@ -399,6 +399,18 @@ class JiraIssue
     }
 
     /**
+     * Returns the key with a $modifier instead of a hyphen
+     *
+     * @param $modifier
+     *
+     * @return mixed
+     */
+    public function getModifiedKey($modifier)
+    {
+        return str_replace("-", $modifier, $this->key);
+    }
+
+    /**
      * @return string
      */
     public function getUrl()
