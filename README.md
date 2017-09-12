@@ -2,7 +2,8 @@
 
 This is PHP library for processing and handling Atlassian JIRA webhook data.
 
-It contains classes that can parse data from [JIRA webhooks](https://developer.atlassian.com/jiradev/jira-apis/webhooks), create listeners for custom events and interface for creating converters for parsed data.
+It contains classes that can parse data from [JIRA webhooks](https://developer.atlassian.com/jiradev/jira-apis/webhooks), 
+create listeners for custom events and interface for creating converters for parsed data.
 
 The package is meant to be used with the [Vicky slackbot](https://github.com/kommuna/vicky), but it can also be used independently.
 
@@ -94,7 +95,7 @@ JiraWebhook::setConverter('converterName', new NewConverterClass());
 $message = JiraWebhook::convert('converterName', $data);
 ```
 
-Please refer to [Slack's documentation for message formatting](https://api.slack.com/docs/message-attachments) for more details.
+Please refer to [Slack's documentation for message formatting](https://api.slack.com/docs/message-formatting) for more details.
 
 # Testing  
 
