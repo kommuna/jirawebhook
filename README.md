@@ -2,7 +2,7 @@
 
 This is PHP library for processing and handling Atlassian JIRA webhook data.
 
-It contains classes that can parse data from [JIRA webhooks](https://developer.atlassian.com/jiradev/jira-apis/webhooks), create [slack client message objects](https://github.com/maknz/slack) and events.
+It contains classes that can parse data from [JIRA webhooks](https://developer.atlassian.com/jiradev/jira-apis/webhooks), create listeners for custom events and interface for creating converters for parsed data.
 
 The package is meant to be used with the [Vicky slackbot](https://github.com/kommuna/vicky), but it can also be used independently.
 
@@ -28,6 +28,19 @@ To create a new event use following example code:
 
 ```php
 use JiraWebhook\JiraWebhook;
+use JiraWebhook\Models\JiraWebhookData;
+
+require __DIR__.'/vendor/autoload.php';
+$config = require '/etc/vicky/config.php';
+
+$jiraWebhook = new JiraWebhook();
+
+$jiraWebhook->addListener('jira:event_name', function($e, $data)
+{
+    /**
+     * Your code here
+     */ 
+});
 
 try {
     $f = fopen('php://input', 'r');
@@ -36,30 +49,7 @@ try {
     if (!$data) {
         throw new JiraWebhookException('There is no data in the Jira webhook');
     }
-} catch (JiraWebhookException $e) {
-    error_log($e->getMessage());
-}
 
-$jiraWebhook = new JiraWebhook($data);
-$jiraWebhook->addListener('jira:issue_updated', function($event, $data)
-{
-    if ($data->isIssueCommented()) {
-        // Instantiate a new Slack Client (refer to https://github.com/maknz/slack for documentation)
-        $slackClient = new Client($incomingWebhookUrl, $clientSettings);
-        
-        // Get Slack Client message object
-        $slackClientMessage = $slackClient->createMessage();
-        
-        // Set up the slack message format
-        JiraWebhook::convert('JiraDefaultToSlack', $data, $slackClientMessage);
-        
-        // Send off the message to Slack's API
-        $slackClientMessage->to('#channel');
-        $slackClientMessage->send();
-    }
-});
-
-try {
     $jiraWebhook->run();
 } catch (\Exception $e) {
      error_log($e->getMessage());
@@ -72,58 +62,39 @@ To create a new converter create a new class that implements the JiraWebhookData
 a new converter use the following example code:
 
 ```php
-use Maknz\Slack\Message;
-use JiraWebhook\JiraWebhook;
 use JiraWebhook\JiraWebhookDataConverter;
+use JiraWebhook\Models\JiraWebhookData;
 
 class NewConverterClass implements JiraWebhookDataConverter
 {
-
-    public function convert(JiraWebhookData $data, Message $clientMessage)
+    public function convert(JiraWebhookData $data)
     {
-        $issue = $data->getIssue();
-
+        $issue        = $data->getIssue();
+        $assigneeName = $issue->getAssignee()->getName();
+        $comment      = $issue->getIssueComments()->getLastComment();
+        
         $message = vsprintf(
-            "Key: %s, Status: %s, Assignee: %s",
+            ":no_entry_sign: <%s|%s> %s: %s ➠ @%s\n@%s ➠ %s",
             [
+                $issue->getUrl(),
                 $issue->getKey(),
-                $issue->getStatus(),
-                $issue->getAssignee(),
+                $issue->getStatusName(),
+                $issue->getSummary(),
+                $assigneeName,
+                $comment->getAuthor()->getName(),
+                $comment->getBody(0, 178)
             ]
         );
         
-        $attachment = [
-            "color" => $issue->getColour(),
-            "fallback" => $message,
-            "pretext" => $data->getIssueEventDescription(),
-            "title" => vsprintf("(%s) %s", [$issue->getKey(), $issue->getSummary()]),
-            "title_link" => $issue->getUrl(),
-
-            'fields' => [
-                [
-                    'title' => 'Status',
-                    'value' => $issue->getStatus(),
-                    'short' => true // whether the field is short enough to sit side-by-side other fields
-                ],
-                [
-                    'title' => 'Priority',
-                    'value' => $issue->getPriority(),
-                    'short' => true
-                ]
-            ],
-        ];
-
-        $clientMessage->attach($attachment);
-
-        return $clientMessage;
+        return $message;
     }
 }
 
 JiraWebhook::setConverter('converterName', new NewConverterClass());
-$message = JiraWebhook::convert('converterName', $jiraWebhookData)
+$message = JiraWebhook::convert('converterName', $data);
 ```
 
-Please refer to [Slack's documentation for message formatting](https://api.slack.com/docs/message-attachments) for more details on the `$attachment` variable above.
+Please refer to [Slack's documentation for message formatting](https://api.slack.com/docs/message-attachments) for more details.
 
 # Testing  
 
