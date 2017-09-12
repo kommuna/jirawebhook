@@ -405,7 +405,7 @@ class JiraIssue
      *
      * @return mixed
      */
-    public function getModifiedKey($modifier)
+    public function getModifiedKey($modifier = " ")
     {
         return str_replace("-", $modifier, $this->key);
     }
