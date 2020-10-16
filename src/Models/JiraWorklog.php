@@ -1,6 +1,6 @@
 <?php
 /**
- * Class that pars JIRA worklog data and gives access to it.
+ * Class that parses JIRA worklog data and gives access to it.
  *
  * @credits https://github.com/kommuna
  * @author  Thomas Hery thery@doghouse.agency
