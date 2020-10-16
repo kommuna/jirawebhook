@@ -1,6 +1,6 @@
 <?php
 /**
- * Class that pars JIRA issue data and gives access to it.
+ * Class that parses JIRA issue data and gives access to it.
  *
  * @credits https://github.com/kommuna
  * @author  Chewbacca chewbacca@devadmin.com
@@ -112,6 +112,13 @@ class JiraIssue
      */
     protected $issueComments;
 
+  /**
+   * All Jira issue fields
+   *
+   * @var array
+   */
+    protected $fields;
+
     /**
      * Parsing JIRA issue $data
      *
@@ -132,6 +139,7 @@ class JiraIssue
         $issueData->validate($data);
 
         $issueFields = $data['fields'];
+        $issueData->setFields($issueFields);
 
         $issueData->setID($data['id']);
         $issueData->setSelf($data['self']);
@@ -372,6 +380,16 @@ class JiraIssue
         $this->issueComments = $issueComments;
     }
 
+    /**
+     * Sets all issue fields to access extra info.
+     *
+     * @param array $fields
+     */
+    public function setFields($fields)
+    {
+      $this->fields = $fields;
+    }
+
     /**************************************************/
 
     /**
@@ -496,6 +514,14 @@ class JiraIssue
     public function getIssueComments()
     {
         return $this->issueComments;
+    }
+
+    /**
+     * @return array
+     */
+    public function getFields()
+    {
+      return $this->fields;
     }
 
 }

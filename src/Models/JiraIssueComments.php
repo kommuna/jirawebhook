@@ -1,6 +1,6 @@
 <?php
 /**
- * Class that pars JIRA issue comments data and gives access to it.
+ * Class that parses JIRA issue comments data and gives access to it.
  *
  * @credits https://github.com/kommuna
  * @author  Chewbacca chewbacca@devadmin.com

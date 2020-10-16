@@ -1,6 +1,6 @@
 <?php
 /**
- * Class that pars JIRA webhook data and gives access to it.
+ * Class that parses JIRA webhook data and gives access to it.
  *
  * @credits https://github.com/kommuna
  * @author  Chewbacca chewbacca@devadmin.com
@@ -69,6 +69,13 @@ class JiraWebhookData
     protected $changelog;
 
     /**
+     * Webook Jira worklog
+     *
+     * @var JiraWorklog
+     */
+    protected $workLog;
+
+    /**
      * Parsing JIRA webhook $data
      *
      * @param null $data
@@ -93,9 +100,12 @@ class JiraWebhookData
         $webhookData->setWebhookEvent($data['webhookEvent']);
         $webhookData->setIssueEvent($data['issue_event_type_name']);
         //$webhookData->setIssueEventDescription($data['issue_event_type_name']);
+
+        // For worklogs, best to get the user from the author fields prior to calling this hook.
         $webhookData->setUser(JiraUser::parse($data['user']));
         $webhookData->setIssue(JiraIssue::parse($data['issue']));
         $webhookData->setChangelog(JiraChangelog::parse($data['changelog']));
+        $webhookData->setWorklog(JiraWorklog::parse($data['worklog']));
 
         return $webhookData;
     }
@@ -110,12 +120,12 @@ class JiraWebhookData
             throw new JiraWebhookDataException('JIRA webhook event not set!');
         }
 
-        if (empty($data['issue_event_type_name'])) {
-            throw new JiraWebhookDataException('JIRA issue event type not set!');
+        if (empty($data['issue_event_type_name']) && empty($data['worklog'])) {
+            throw new JiraWebhookDataException('JIRA issue event type or worklog not set!');
         }
 
-        if (empty($data['issue'])) {
-            throw new JiraWebhookDataException('JIRA issue not set!');
+        if (empty($data['issue']) && empty($data['worklog'])) {
+            throw new JiraWebhookDataException('JIRA issue or worklog not set!');
         }
     }
 
@@ -236,6 +246,14 @@ class JiraWebhookData
         $this->changelog = $changelog;
     }
 
+    /**
+     * @param $changelog
+     */
+    public function setWorklog($worklog)
+    {
+        $this->workLog = $worklog;
+    }
+
     /**************************************************/
 
     /**
@@ -300,5 +318,13 @@ class JiraWebhookData
     public function getChangelog()
     {
         return $this->changelog;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getWorklog()
+    {
+        return $this->workLog;
     }
 }

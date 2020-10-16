@@ -1,6 +1,6 @@
 <?php
 /**
- * Class that pars JIRA user data and gives access to it.
+ * Class that parses JIRA user data and gives access to it.
  *
  * @credits https://github.com/kommuna
  * @author  Chewbacca chewbacca@devadmin.com
@@ -90,7 +90,8 @@ class JiraUser
         $userData->validate($data);
 
         $userData->setSelf($data['self']);
-        $userData->setName($data['name']);
+        $userName = empty($data['name']) && !empty($data['displayName']) ? $data['displayName'] : $data['name'];
+        $userData->setName($userName);
         $userData->setKey($data['key']);
         $userData->setEmail($data['emailAddress']);
         $userData->setAvatarURLs($data['avatarUrls']);
@@ -107,7 +108,7 @@ class JiraUser
      */
     public function validate($data)
     {
-        if (empty($data['name'])) {
+        if (empty($data['name']) && empty($data['displayName'])) {
             throw new JiraWebhookDataException('JIRA issue user name does not exist!');
         }
     }
