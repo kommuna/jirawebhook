@@ -110,7 +110,7 @@ class JiraIssueComments
     /**************************************************/
 
     /**
-     * @return array
+     * @return array<\JiraWebhook\Models\JiraIssueComment>
      */
     public function getComments()
     {
