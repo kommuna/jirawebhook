@@ -99,7 +99,7 @@ class JiraChangelog
     }
 
     /**
-     * @return array
+     * @return array<\JiraWebhook\Models\JiraChangelogItem>
      */
     public function getItems()
     {
